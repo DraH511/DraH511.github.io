@@ -289,7 +289,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/24/markdown%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">Untitled</a>
+          <a href="/2020/11/24/markdown%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">markdown语法学习</a>
         </h2>
 
         <div class="post-meta-container">
@@ -299,10 +299,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2020-11-24 19:50:28 / Modified: 22:13:03" itemprop="dateCreated datePublished" datetime="2020-11-24T19:50:28+08:00">2020-11-24</time>
+      <time title="Created: 2020-11-24 19:50:28" itemprop="dateCreated datePublished" datetime="2020-11-24T19:50:28+08:00">2020-11-24</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-25 00:21:00" itemprop="dateModified" datetime="2020-11-25T00:21:00+08:00">2020-11-25</time>
+      </span>
 
   
 </div>
@@ -314,8 +320,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <hr>
-<h2 id="title-markdown语法"><a href="#title-markdown语法" class="headerlink" title="title:markdown语法"></a>title:markdown语法</h2><h1 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h1><p>#后加空格+文字</p>
+          <h1 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h1><p>#后加空格+文字</p>
 <p>#一级标题</p>
 <p>##二级标题</p>
 <h1 id="二、字体"><a href="#二、字体" class="headerlink" title="二、字体"></a>二、字体</h1><ul>
@@ -332,10 +337,51 @@
 <blockquote>
 <p>引用</p>
 </blockquote>
-<h1 id="四、分割线"><a href="#四、分割线" class="headerlink" title="四、分割线"></a>四、分割线</h1><p>三个或者三个以上的或者*都可以</p>
+<h1 id="四、分割线"><a href="#四、分割线" class="headerlink" title="四、分割线"></a>四、分割线</h1><p>三个或者三个以上的-或者*都可以</p>
 <hr>
-<h1 id="五、图片"><a href="#五、图片" class="headerlink" title="五、图片"></a>五、图片</h1><p><img src="../picture/round.jpg" alt="round" title="圆明园"></p>
+<h1 id="五、图片"><a href="#五、图片" class="headerlink" title="五、图片"></a>五、图片</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br><span class="line">图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br></pre></td></tr></table></figure>
 
+<p><img src="./picture/round.jpg" alt="round" title="圆明园"></p>
+<h1 id="六、超链接"><a href="#六、超链接" class="headerlink" title="六、超链接"></a>六、超链接</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br><span class="line">title可加可不加</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[百度](http:&#x2F;&#x2F;baidu.com)</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://baidu.com/">百度</a></p>
+<h1 id="七、列表"><a href="#七、列表" class="headerlink" title="七、列表"></a>七、列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>无序列表用 - + * 任何一种都可以</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br><span class="line"></span><br><span class="line">注意：- + * 跟内容之间都要有一个空格</span><br></pre></td></tr></table></figure>
+
+<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p>数字加点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br><span class="line"></span><br><span class="line">注意：序号跟内容之间要有空格</span><br></pre></td></tr></table></figure>
+
+<h1 id="八、表格"><a href="#八、表格" class="headerlink" title="八、表格"></a>八、表格</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line">- 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。此处省略</span><br></pre></td></tr></table></figure>
+
+<p>也可直接选择插入表格</p>
+<h1 id="九、代码"><a href="#九、代码" class="headerlink" title="九、代码"></a>九、代码</h1><h2 id="单行代码"><a href="#单行代码" class="headerlink" title="单行代码"></a>单行代码</h2><p>代码之间分别用一个反引号包起来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>代码之间分别用三个反引号包起来，且两边的反引号单独占一行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="十、流程图"><a href="#十、流程图" class="headerlink" title="十、流程图"></a>十、流程图</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">​&lt;div id&#x3D;&quot;flowchart-0&quot; class&#x3D;&quot;flow-chart&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<div id="flowchart-1" class="flow-chart"></div>
+```<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始
+op=>operation: My Operation
+cond=>condition: Yes or No?
+e=>end
+st->op->cond
+cond(yes)->e
+cond(no)->op
+&</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><textarea id="flowchart-1-code" style="display: none">​```flow
+st=>start: 开始
+op=>operation: My Operation
+cond=>condition: Yes or No?
+e=>end
+st->op->cond
+cond(yes)->e
+cond(no)->op
+&</textarea><textarea id="flowchart-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-1-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-1", options);</script>
       
     </div>
 

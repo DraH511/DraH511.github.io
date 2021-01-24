@@ -172,7 +172,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -202,6 +202,544 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/24/For_work/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/24/For_work/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-01-24 21:05:29 / Modified: 21:06:43" itemprop="dateCreated datePublished" datetime="2021-01-24T21:05:29+08:00">2021-01-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="mongodb配置"><a href="#mongodb配置" class="headerlink" title="mongodb配置"></a>mongodb配置</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45519387/article/details/104323436?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-2&amp;spm=1001.2101.3001.4242">https://blog.csdn.net/weixin_45519387/article/details/104323436?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-2&amp;spm=1001.2101.3001.4242</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/17/Java/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/17/Java/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-17 16:38:38" itemprop="dateCreated datePublished" datetime="2020-12-17T16:38:38+08:00">2020-12-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-30 23:50:19" itemprop="dateModified" datetime="2020-12-30T23:50:19+08:00">2020-12-30</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>“==”和”equals”的区别<br>“==”是判断两个变量或实例是不是指向同一个内存空间。”==”比较的是地址，即是否为同一个对象。但当为基本类型的时候，比较的是值，具体分下面四种情况<br>0、==两边是不同的包装类型，无法比较，会编译出错。<br>1、==是基本类型和包装类型进行比较，则包装类型会自动拆箱转换为基本类型再比较值是否相等。<br>2、==两边都是new出来的包装类型，即为对象，比较的是地址。<br>3、==一边是new出来的包装类型，一边是Integer a=127或者Integer a=Integer.valueOf(127)，即非new出来的包装类型，永远不会相等。<br>4、==两边都是非new出来的相同的包装类型，如果数值在[-128,127]则为TRUE，超出这个区间则为FALSE<br>“equals”是判断两个变量或实例所指向的内存空间的值是不是相同。没有重写Object的equals方法的话，那么equals的含义是比较两个<strong>引用</strong>是否相等，也就是进行==比较。<strong>String类型重写了Object的equals方法，String类型的equals只比较值</strong></p>
+<p>8大数据类型<br>byte<br>short    2<br>int         4<br>long      8    9000000000000000000L,结尾要加L<br>float      4    3.14f 结尾要加f<br>double  8<br>boolean<br>char      2 Unicode</p>
+<p>final常量，避免magic number</p>
+<p>String     JVM先创建字符串然后再将字符串变量指向它。</p>
+<p>Java语言的特性（平台无关性：运行在JVM上；面向对象：继承，多态，封装；自动内存管理：垃圾回收机制；解释型语言；支持并发编程；健壮性：强类型机制，异常处理，垃圾回收）</p>
+<p><strong>平台无关性：</strong><img src="/2020/12/17/Java/image-20201210214124940.png" alt="image-20201210214124940"><br>java语言与平台无关，JVM与平台有关，与CLASS文件交互</p>
+<p><img src="/2020/12/17/Java/image-20201210214407398.png" alt="image-20201210214407398"></p>
+<p><strong>继承</strong>：子类必须调用父类的构造方法。只能extends一个class<br>Override方法覆盖（覆写），子类实现超类的成员方法。<br>Overload新方法，方法过载，同一个类，方法名相同，参数不同。<br>方法名相同，方法参数相同，但方法返回值不同，也是不同的方法<br><strong>多态</strong>：接口实现，继承父类进行方法重写，同一个类中进行方法重载。实现功能扩展<br>针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法。<br><strong>封装</strong>：将类的某些信息隐藏在类的内部，不允许外部程序直接访问，而是通过实现对隐藏信息的访问和操作。</p>
+<p>接口：可以implements多个interface</p>
+<p>static静态方法：用类来访问静态字段。<br>import static：静态导包，导入一个类的静态字段和静态方法。</p>
+<p><img src="/2020/12/17/Java/image-20201208195441293.png" alt="image-20201208195441293"></p>
+<p>this关键字指向的是当前对象的引用</p>
+<p>泛型：定义的一种模板，同ArrayList&lt;类型&gt;</p>
+<p>多线程：<br>继承Thread子类<br>覆盖run()方法<br>start()启动线程</p>
+<p>声明一个类，实现Runnable接口，实现run()方法。</p>
+<p>notify()使线程脱离阻塞状态<br>synchronized进程同步。</p>
+<p>AndroidManifest.xml:配置文件<br>R.java自动生成的文件，包含对资源的引用指针。drawable\layout\values<br>Gradle项目构建工具</p>
+<p>activity状态：<br><img src="/2020/12/17/Java/image-20201208201420838.png" alt="image-20201208201420838"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/14/Android%20Studio/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/14/Android%20Studio/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-12-14 20:01:28 / Modified: 20:16:11" itemprop="dateCreated datePublished" datetime="2020-12-14T20:01:28+08:00">2020-12-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <hr>
+<h2 id="title-Android问题"><a href="#title-Android问题" class="headerlink" title="title:Android问题"></a>title:Android问题</h2><p>替换快捷键：Ctrl+Shift+R</p>
+<p>设置textview文字居中或者控件居中<br>在xml文件设置：android:gravity=”center”；<br>在程序中设置：txtTitle.setGravity(Gravity.CENTER);</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/10/Java%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/10/Java%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-12-10 22:14:24 / Modified: 22:43:50" itemprop="dateCreated datePublished" datetime="2020-12-10T22:14:24+08:00">2020-12-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h1><ol>
+<li><p>项目名全部小写</p>
+</li>
+<li><p>包名全部小写</p>
+</li>
+<li><p> 类名首字母大写，如果类名由多个单词组成，每个单词的首字母都要大写。如：public class MyFirstClass{}</p>
+</li>
+<li><p>变量名、方法名首字母小写，如果名称由多个单词组成，每个单词的首字母都要大写。</p>
+<p>如：int index=0;</p>
+<p>public void toString(){}</p>
+</li>
+<li><p>常量名全部大写</p>
+<p>如：public static final String GAME_COLOR=”RED”;</p>
+</li>
+<li><p>所有命名规则必须遵循以下规则：</p>
+<p>1)、名称只能由字母、数字、下划线、$符号组成</p>
+<p>2)、不能以数字开头</p>
+<p>3)、名称不能使用JAVA中的关键字。</p>
+<p>4)、坚决不允许出现中文及拼音命名。</p>
+</li>
+</ol>
+<h1 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h1><p>&lt;&lt;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int n &#x3D; 7;       &#x2F;&#x2F; 00000000 00000000 00000000 00000111 &#x3D; 7</span><br><span class="line">int a &#x3D; n &lt;&lt; 1;  &#x2F;&#x2F; 00000000 00000000 00000000 00001110 &#x3D; 14</span><br><span class="line">int b &#x3D; n &lt;&lt; 2;  &#x2F;&#x2F; 00000000 00000000 00000000 00011100 &#x3D; 28</span><br></pre></td></tr></table></figure>
+
+<p>&gt;&gt;符号位不变右移</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int n &#x3D; -536870912;</span><br><span class="line">int a &#x3D; n &gt;&gt; 1;  &#x2F;&#x2F; 11110000 00000000 00000000 00000000 &#x3D; -268435456</span><br><span class="line">int b &#x3D; n &gt;&gt; 2;  &#x2F;&#x2F; 11111000 00000000 00000000 00000000 &#x3D; -134217728</span><br></pre></td></tr></table></figure>
+
+<p>&gt;&gt;&gt;不管符号位，右移后高位总是补<code>0</code>，因此，对一个负数进行<code>&gt;&gt;&gt;</code>右移，它会变成正数</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/07/%E8%85%BE%E8%AE%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/07/%E8%85%BE%E8%AE%AF/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-07 18:45:21" itemprop="dateCreated datePublished" datetime="2020-12-07T18:45:21+08:00">2020-12-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-30 23:06:52" itemprop="dateModified" datetime="2020-12-30T23:06:52+08:00">2020-12-30</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="/2020/12/07/%E8%85%BE%E8%AE%AF/image-20201230230636382.png" alt="image-20201230230636382"></p>
+<p>1.tcp三次握手 四次挥手</p>
+<p>tcp三次握手<br>刚开始，客户端Closed状态，服务端Listen状态<br>第一次，客户端发<strong>SYN报文</strong>（1，不携带数据），SYN_SEND状态<br>第二次，服务器收到SYN，以自己<strong>SYN</strong>应答，<strong>ACK</strong>（序列号+1）,SYN_REVD状态<br>第三次，客户端收到SYN，发送ACK，客户端ESTABLISH状态，服务器收到ACK，服务器ESTABLISH状态</p>
+<p>SYN泛洪攻击：客户端不发送ACK，<br>防范：SYN cookie，服务器：SYN的源和目的IP以及端口号和服务器（秘密数）散列函数形成SYNACK序列号。客户端发送ACK，服务器计算ACK是否为之前的序列号值。</p>
+<p>三次reason：客户端确认，客户端收发，服务器收发<br>          服务器确认，客户端收发，服务器收发</p>
+<p>四次挥手<br>刚开始双方都处于 ESTABLISHED 状态<br>第一次挥手：客户端发送 FIN 报文，FIN_WAIT1状态<br>第二次挥手：服务器收到FIN,发ACK，CLOSE_WAIT状态，TCP半关闭。客户端FIN_WAIT2.<br>第三次挥手：服务器想断开，发FIN，LAST_ACK状态.<br>第四次挥手：客户端收到FIN，发ACK,TIME_WAIT.</p>
+<p>2.内存 （代码分区 堆 栈）</p>
+<p>预处理、编译、汇编、链接</p>
+<p>代码区：存放程序语句编译后，形成二进制代码。<br>常量区：字符串常量和其他常量的存储位置，操作系统释放。<br>全局区：全局变量和静态变量，初始化一起，未初始化一起，操作系统释放。<br>堆区：就是通过new、malloc、realloc分配的内存块，需要用程序区free()释放.<br>栈区：自动分配释放，存放函数的参数值，局部变量的值</p>
+<p>3.URL键入后步骤<br>http协议-&gt;DNS协议（自查缓存）没有-&gt;UDP-&gt;IP到DNS服务器<br>DNS，本地，直接（DNS服务器），递归（根—&gt;顶级）局部服务器返回查询结果，迭代：局部服务器返回能查询的DNS服务器IP</p>
+<p>4.new和malloc</p>
+<p>5.修饰符 static constIP</p>
+<p>静态</p>
+<p>6.进程通信（Linux指令）<br>fork()返回值：-1出错，0在子进程中，&gt;0（在父进程中）子进程pid<br>fork调用一次却返回两次；向父进程返回子进程的PID，向子进程中返回0。</p>
+<p>7.树的遍历<br>先序（根左右）<br>void Pre(BTNode * b){<br>    if(b!=NULL){<br>        printf(“%d”,b-&gt;data);<br>        Pre(b-&gt;lchild);<br>        Pre(b-&gt;rchild);<br>    }<br>}<br>中序、后序、层次</p>
+<p>先序和中序生成二叉树，先序根-&gt;中序左右子树-&gt;先序左右子树根</p>
+<p>8.排序复杂度<br>直接插入排序：有序区，无序区，R[i]插入到有序区。时间O(n^2^)<br>折半插入排序：low、high，插入点。时间O（n^2^）,空间O（1）<br>希尔排序：d分组，组内插入排序</p>
+<p>冒泡排序：全局有序区O(n^2)，改进增加bool量，没交换则停止<br>快速排序：选择一个元素作为基准，比它大的放一边，比它小的放一边。递归。时间O(nlog<del>2</del>n)</p>
+<p>简单选择排序：全局有序区。无序区选最小与无序区第一个交换。O(n^2^)不稳定<br>堆排序：完全二叉树</p>
+<p>归并排序：2个有序的子表合成 一个</p>
+<p>9.sql语句</p>
+<p>10.进程和线程的区别 各类进程概念和状态<br>进程和线程都是一个时间段的描述，是CPU工作时间段的描述。<br>并发：进程可并发，一个进程不同线程可并发执行<br>线程是调度和分配的基本单位。进程是系统中拥有资源的基本单位，多个线程共享该进程的资源。<br>进程独立性高。</p>
+<p>11.栈和队列的实际应用</p>
+<p>12.各类Nosql 主要是Key-Value Redis<br>AOF、RDB性能基本一致<br>分布式CAP、BASE<br>13.套接字编程</p>
+<p>14.流量 拥塞控制、<br>流量控制：速度匹配服务，（发送方发送速率与接收方读取速率匹配）TCP的流量控制是利用<strong>滑动窗口</strong>（接收窗口）机制实现的：指示接收方还有多少缓存空间。接收方分配的接收缓存-已用缓存。<br>接收方在返回的数据中会包含自己的接收窗口的大小，以控制发送方的数据发送。</p>
+<p>拥塞控制：原因：IP网络的拥塞。<br>判断TCP报文丢失（超时或3个冗余ACK）<br>增加拥塞窗口（cwnd）来限制发送速率。<br>①慢启动②拥塞避免③快速恢复。<br>慢启动。开始cwnd=1MSS指数增长。拥塞cwnd=1，慢启动阈值（ssthresh）设置为cwnd/2。<br>再次慢启动到达慢启动阈值进入拥塞避免cwnd+=1.<br>再次超时按慢启动，但三个冗余ACK进入快速恢复，收到每个冗余ACK，cwnd+=1。慢启动阈值=cwnd/2。收到第3个冗余ACK后，cwnd降低进入拥塞避免。<br>15.https协议<br>17.Linux各种指令<br>18.HashMap</p>
+<p>（19.密码学）</p>
+<p>区分指令和数据：<br>通过不同时间段区分，取指令阶段，执行指令阶段</p>
+<p>程序执行：编译、链接、装入<br>20.进程 页面调度 （LRU）<br>进程：<br>非抢占式。<br>抢占式：优先权原则，短进程优先原则，时间片原则。</p>
+<p>页面置换 ：<br>最佳置换算法、FIFO、LRU(最近最久未使用)、LFU（最少使用算法）</p>
+<p>21.补码运算<br>正数的补码 = 原码<br>负数的补码 = {原码符号位不变} + {数值位bai按位取反后+1}</p>
+<p>22.虚函数<br>23.gcc编译过程</p>
+<p>编程题：<br>1.反转链表<br>2.LRU<br>3.树的遍历和生成<br>4.回文<br>5.字符串<br>6.最短路径<br>7.动态规划（子序列）<br>8.排序</p>
+<p>其他：<br>1.查找相似字符串<br>2.大数据排序分类</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-01 17:27:21" itemprop="dateCreated datePublished" datetime="2020-12-01T17:27:21+08:00">2020-12-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-07 18:45:16" itemprop="dateModified" datetime="2020-12-07T18:45:16+08:00">2020-12-07</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <hr>
+<h2 id="title-测试面试总结"><a href="#title-测试面试总结" class="headerlink" title="title:测试面试总结"></a>title:测试面试总结</h2><h1 id="网络攻防"><a href="#网络攻防" class="headerlink" title="网络攻防"></a>网络攻防</h1><p><strong>（1）</strong> ARP欺骗的攻击原理</p>
+<p>ARP欺骗的是根据ARP协议本身存在的漏洞实现的。攻击者利用伪造的IP／MAC映射关系来骗取其他主机的信任。ARP协议是建立在局域网主机相互信任的基础之上的。ARP具有广播性、无状态性、无认证性、无关性和动态性等一系列的安全缺陷。</p>
+<p><strong>（2）</strong> ARP欺骗的攻击方案：</p>
+<p>①．常见ARP攻击方式</p>
+<ul>
+<li><p>简单的欺骗攻击。同一网段内，目的主机发送ARP广播请求后，攻击主机直接将伪造的应答ARP包发送给路由和目的主机，用虚假的MAC地址欺骗目的主机，从而使主机网络中断。</p>
+</li>
+<li><p>交换环境的嗅探。将自己的主机伪造成一个中间转发站来监听其他主机间的相互通信。嗅探主机获得相应权限可以发送ICMP重定向消息，将自身主机设置为缺省路由器，使其他主机数据包要通过嗅探主机来进行路由转发。为了维持原有正常的网络通信路由状况，需要进行IP转发。</p>
+</li>
+<li><p>交换机MAC地址表溢出。交换机MAC地址表空间有限，运用虚假伪造的包将交换机的MAC地址表充满，交换机无法找到目的主机对应接口，只能在广播域中将数据包泛洪。这种方法可能造成网络堵塞甚至崩溃。</p>
+</li>
+</ul>
+<p>能查找到目标主机的ip</p>
+<p>能使用kali虚拟机的arpspoof命令实现ARP欺骗攻击</p>
+<p>arp地址解析协议是建立在网络中各个主机互相信任的基础</p>
+<p>集线器“Hub”，收到信号放大再生，广播</p>
+<p>成对组合测试 PICT</p>
+<p><img src="/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/image-20201203110016216.png" alt="image-20201203110016216"></p>
+<p>静态测试</p>
+<p>哈希值计算，输入：字符串，返回0到m之间大整数</p>
+<p>哈希冲突：多次哈希，（线性探测、平方探测、拉链法：装载因子可大于1）</p>
+<p>调整哈希表大小</p>
+<p>数据过多队列溢出，单向链式循环队列malloc。返回的指针指向该分配域的开头位置</p>
+<p>深拷贝：新建了内存地址，放内容。</p>
+<p>浅拷贝：指针指向内存。</p>
+<h1 id="大数据项目部署过程记录"><a href="#大数据项目部署过程记录" class="headerlink" title="大数据项目部署过程记录"></a>大数据项目部署过程记录</h1><p>​    （1）集群包含节点，一主一从，均位于虚拟机。</p>
+<p>​    （2）RedisServer位于Windows系统，需要的话可以移植到虚拟机上，通过Redis Desktop Manager远程访问。</p>
+<p>​    （3）MySQLServer位于集群主节点，在Windows系统上通过Navicat远程访问。</p>
+<p>​    （4）爬虫和Spark程序都需要手动拷贝到集群运行</p>
+<p>​    （5）爬虫启动后自动将保存到HDFS</p>
+<p>​    （5）Spark程序启动后自动从HDFS系统读取数据文件，将分析的数据结果保存到MySQL数据库。</p>
+<h1 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a>测试工具</h1><p>JUnit单元测试</p>
+<p>JUnit Test Case,建立一个测试类，通过注解</p>
+<p>使用<strong>注释命令</strong>控制测试执行</p>
+<p>@Test测试类timeout,expected.</p>
+<p>@After @Before</p>
+<p>@Parameters 参数化测试数据</p>
+<p>testsuite将多个test文件统一执行调度</p>
+<p>QTP，软件功能测试、回归测试</p>
+<p>利用对象识别技术。自动化功能测试软件，通过检查点技术来检查网页，对象，表格等是否符合预期。功能是否符合要求。</p>
+<p>(链接跳转、用户注册、用户登录、航班查询等功能测试）。</p>
+<p>Load Runner系统性能测试。</p>
+<p>组件：</p>
+<ul>
+<li>虚拟用户发生器(VuGen):创建虚拟用户测试脚本</li>
+<li>控制器(Controller):设计与运行测试场景。</li>
+<li>负载发生器(Load Generators):模拟用户对服务器提交请求。</li>
+<li>分析器(Analysis):主要对测试结果进行分析。</li>
+</ul>
+<p>​         </p>
+<p>我是来自电子科技大学大三的学生何龙，专业是软件工程网络安全方向。主要语言技能是比较熟悉C语言，也了解过一些关系型数据库postgresql的操作。软件工程基础学过软件测试的相关知识</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -514,7 +1052,7 @@ cond(no)->op
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

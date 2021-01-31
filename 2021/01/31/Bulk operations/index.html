@@ -23,25 +23,20 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
   </script>
-<meta name="description" content="“&#x3D;&#x3D;”和”equals”的区别“&#x3D;&#x3D;”是判断两个变量或实例是不是指向同一个内存空间。”&#x3D;&#x3D;”比较的是地址，即是否为同一个对象。但当为基本类型的时候，比较的是值，具体分下面四种情况0、&#x3D;&#x3D;两边是不同的包装类型，无法比较，会编译出错。1、&#x3D;&#x3D;是基本类型和包装类型进行比较，则包装类型会自动拆箱转换为基本类型再比较值是否相等。2、&#x3D;&#x3D;两边都是new出来的包装类型，即为对象，比较的是地址。3、&#x3D;&#x3D;一边是n">
+<meta name="description" content="MongoDB Driver  Tutorials  Write Operations  Bulk Writes  Bulk operationsStarting in version 2.6, MongoDB servers support bulk write commands for insert, update, and delete in a way that allows the d">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hotpot nice">
-<meta property="og:url" content="http://example.com/2020/12/17/Java/index.html">
+<meta property="og:url" content="http://example.com/2021/01/31/Bulk%20operations/index.html">
 <meta property="og:site_name" content="Hotpot nice">
-<meta property="og:description" content="“&#x3D;&#x3D;”和”equals”的区别“&#x3D;&#x3D;”是判断两个变量或实例是不是指向同一个内存空间。”&#x3D;&#x3D;”比较的是地址，即是否为同一个对象。但当为基本类型的时候，比较的是值，具体分下面四种情况0、&#x3D;&#x3D;两边是不同的包装类型，无法比较，会编译出错。1、&#x3D;&#x3D;是基本类型和包装类型进行比较，则包装类型会自动拆箱转换为基本类型再比较值是否相等。2、&#x3D;&#x3D;两边都是new出来的包装类型，即为对象，比较的是地址。3、&#x3D;&#x3D;一边是n">
+<meta property="og:description" content="MongoDB Driver  Tutorials  Write Operations  Bulk Writes  Bulk operationsStarting in version 2.6, MongoDB servers support bulk write commands for insert, update, and delete in a way that allows the d">
 <meta property="og:locale">
-<meta property="og:image" content="http://example.com/2020/12/17/Java/image-20201210214124940.png">
-<meta property="og:image" content="http://example.com/2020/12/17/Java/image-20201210214407398.png">
-<meta property="og:image" content="http://example.com/2020/12/17/Java/image-20201208195441293.png">
-<meta property="og:image" content="http://example.com/2020/12/17/Java/image-20201208201420838.png">
-<meta property="article:published_time" content="2020-12-17T08:38:38.436Z">
-<meta property="article:modified_time" content="2020-12-30T15:50:19.230Z">
+<meta property="article:published_time" content="2021-01-31T15:01:30.448Z">
+<meta property="article:modified_time" content="2021-01-31T15:01:46.231Z">
 <meta property="article:author" content="松子">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2020/12/17/Java/image-20201210214124940.png">
 
 
-<link rel="canonical" href="http://example.com/2020/12/17/Java/">
+<link rel="canonical" href="http://example.com/2021/01/31/Bulk%20operations/">
 
 
 <script class="page-configurations">
@@ -155,7 +150,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -168,6 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bulk-operations"><span class="nav-number">1.</span> <span class="nav-text">Bulk operations</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IMPORTANT"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">IMPORTANT</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -221,7 +217,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/17/Java/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/Bulk%20operations/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -244,16 +240,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2020-12-17 16:38:38" itemprop="dateCreated datePublished" datetime="2020-12-17T16:38:38+08:00">2020-12-17</time>
+      <time title="Created: 2021-01-31 23:01:30 / Modified: 23:01:46" itemprop="dateCreated datePublished" datetime="2021-01-31T23:01:30+08:00">2021-01-31</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-30 23:50:19" itemprop="dateModified" datetime="2020-12-30T23:50:19+08:00">2020-12-30</time>
-      </span>
 
   
 </div>
@@ -265,24 +255,22 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>“==”和”equals”的区别<br>“==”是判断两个变量或实例是不是指向同一个内存空间。”==”比较的是地址，即是否为同一个对象。但当为基本类型的时候，比较的是值，具体分下面四种情况<br>0、==两边是不同的包装类型，无法比较，会编译出错。<br>1、==是基本类型和包装类型进行比较，则包装类型会自动拆箱转换为基本类型再比较值是否相等。<br>2、==两边都是new出来的包装类型，即为对象，比较的是地址。<br>3、==一边是new出来的包装类型，一边是Integer a=127或者Integer a=Integer.valueOf(127)，即非new出来的包装类型，永远不会相等。<br>4、==两边都是非new出来的相同的包装类型，如果数值在[-128,127]则为TRUE，超出这个区间则为FALSE<br>“equals”是判断两个变量或实例所指向的内存空间的值是不是相同。没有重写Object的equals方法的话，那么equals的含义是比较两个<strong>引用</strong>是否相等，也就是进行==比较。<strong>String类型重写了Object的equals方法，String类型的equals只比较值</strong></p>
-<p>8大数据类型<br>byte<br>short    2<br>int         4<br>long      8    9000000000000000000L,结尾要加L<br>float      4    3.14f 结尾要加f<br>double  8<br>boolean<br>char      2 Unicode</p>
-<p>final常量，避免magic number</p>
-<p>String     JVM先创建字符串然后再将字符串变量指向它。</p>
-<p>Java语言的特性（平台无关性：运行在JVM上；面向对象：继承，多态，封装；自动内存管理：垃圾回收机制；解释型语言；支持并发编程；健壮性：强类型机制，异常处理，垃圾回收）</p>
-<p><strong>平台无关性：</strong><img src="/2020/12/17/Java/image-20201210214124940.png" alt="image-20201210214124940"><br>java语言与平台无关，JVM与平台有关，与CLASS文件交互</p>
-<p><img src="/2020/12/17/Java/image-20201210214407398.png" alt="image-20201210214407398"></p>
-<p><strong>继承</strong>：子类必须调用父类的构造方法。只能extends一个class<br>Override方法覆盖（覆写），子类实现超类的成员方法。<br>Overload新方法，方法过载，同一个类，方法名相同，参数不同。<br>方法名相同，方法参数相同，但方法返回值不同，也是不同的方法<br><strong>多态</strong>：接口实现，继承父类进行方法重写，同一个类中进行方法重载。实现功能扩展<br>针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法。<br><strong>封装</strong>：将类的某些信息隐藏在类的内部，不允许外部程序直接访问，而是通过实现对隐藏信息的访问和操作。</p>
-<p>接口：可以implements多个interface</p>
-<p>static静态方法：用类来访问静态字段。<br>import static：静态导包，导入一个类的静态字段和静态方法。</p>
-<p><img src="/2020/12/17/Java/image-20201208195441293.png" alt="image-20201208195441293"></p>
-<p>this关键字指向的是当前对象的引用</p>
-<p>泛型：定义的一种模板，同ArrayList&lt;类型&gt;</p>
-<p>多线程：<br>继承Thread子类<br>覆盖run()方法<br>start()启动线程</p>
-<p>声明一个类，实现Runnable接口，实现run()方法。</p>
-<p>notify()使线程脱离阻塞状态<br>synchronized进程同步。</p>
-<p>AndroidManifest.xml:配置文件<br>R.java自动生成的文件，包含对资源的引用指针。drawable\layout\values<br>Gradle项目构建工具</p>
-<p>activity状态：<br><img src="/2020/12/17/Java/image-20201208201420838.png" alt="image-20201208201420838"></p>
+        <ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-write-operations/">Write Operations</a> </li>
+<li>Bulk Writes</li>
+</ul>
+<h2 id="Bulk-operations"><a href="#Bulk-operations" class="headerlink" title="Bulk operations"></a>Bulk operations</h2><p>Starting in version 2.6, MongoDB servers support bulk write commands for insert, update, and delete in a way that allows the driver to implement the correct semantics for BulkWriteResult and BulkWriteException.</p>
+<p>There are two types of bulk operations, ordered and unordered bulk operations.</p>
+<ol>
+<li>Ordered bulk operations execute all the operation in order and error out on the first write error.</li>
+<li>Unordered bulk operations execute all the operations and report any the errors. Unordered bulk operations do not guarantee order of execution.</li>
+</ol>
+<p>The following code provide examples using ordered and unordered operations:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Ordered bulk operation - order is guaranteed</span></span><br><span class="line">collection.bulkWrite(</span><br><span class="line">  Arrays.asList(<span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">4</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">5</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">6</span>)),</span><br><span class="line">                <span class="keyword">new</span> UpdateOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">1</span>),</span><br><span class="line">                                     <span class="keyword">new</span> Document(<span class="string">&quot;$set&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;x&quot;</span>, <span class="number">2</span>))),</span><br><span class="line">                <span class="keyword">new</span> DeleteOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">2</span>)),</span><br><span class="line">                <span class="keyword">new</span> ReplaceOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>),</span><br><span class="line">                                      <span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>).append(<span class="string">&quot;x&quot;</span>, <span class="number">4</span>))));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">// 2. Unordered bulk operation - no guarantee of order of operation</span></span><br><span class="line">collection.bulkWrite(</span><br><span class="line">  Arrays.asList(<span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">4</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">5</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">6</span>)),</span><br><span class="line">                <span class="keyword">new</span> UpdateOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">1</span>),</span><br><span class="line">                                     <span class="keyword">new</span> Document(<span class="string">&quot;$set&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;x&quot;</span>, <span class="number">2</span>))),</span><br><span class="line">                <span class="keyword">new</span> DeleteOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">2</span>)),</span><br><span class="line">                <span class="keyword">new</span> ReplaceOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>),</span><br><span class="line">                                      <span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>).append(<span class="string">&quot;x&quot;</span>, <span class="number">4</span>))),</span><br><span class="line">  <span class="keyword">new</span> BulkWriteOptions().ordered(<span class="keyword">false</span>));</span><br></pre></td></tr></table></figure>
+
+<h5 id="IMPORTANT"><a href="#IMPORTANT" class="headerlink" title="IMPORTANT"></a>IMPORTANT</h5><p>Use of the bulkWrite methods is not recommended when connected to pre-2.6 MongoDB servers. Although these methods will work for pre-2.6 servers, performance will suffer as each write operation executes one at a time.</p>
 
     </div>
 
@@ -296,14 +284,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/12/14/Android%20Studio/" rel="prev" title="">
+                <a href="/2021/01/31/Write%20Operations/" rel="prev" title="">
                   <i class="fa fa-chevron-left"></i> 
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/01/24/For_work/" rel="next" title="">
-                   <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

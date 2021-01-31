@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="MongoDB Driver  Tutorials  Create Indexes  Create IndexesIndexes support the efficient execution of queries in MongoDB. To create an index on a field or fields, pass an index specification document t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hotpot nice">
+<meta property="og:url" content="http://example.com/2021/01/31/index/index.html">
+<meta property="og:site_name" content="Hotpot nice">
+<meta property="og:description" content="MongoDB Driver  Tutorials  Create Indexes  Create IndexesIndexes support the efficient execution of queries in MongoDB. To create an index on a field or fields, pass an index specification document t">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-01-31T14:58:12.203Z">
+<meta property="article:modified_time" content="2021-01-31T14:57:43.852Z">
+<meta property="article:author" content="松子">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/01/31/index/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title> | Hotpot nice</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hotpot nice</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section">Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Create-Indexes"><span class="nav-number">1.</span> <span class="nav-text">Create Indexes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NOTE"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">NOTE</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites"><span class="nav-number">2.</span> <span class="nav-text">Prerequisites</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connect-to-a-MongoDB-Deployment"><span class="nav-number">3.</span> <span class="nav-text">Connect to a MongoDB Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ascending-Index"><span class="nav-number">4.</span> <span class="nav-text">Ascending Index</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Ascending-Index"><span class="nav-number">4.1.</span> <span class="nav-text">Single Ascending Index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compound-Ascending-Index"><span class="nav-number">4.2.</span> <span class="nav-text">Compound Ascending Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Descending-Index"><span class="nav-number">5.</span> <span class="nav-text">Descending Index</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Single-Descending-Key-Index"><span class="nav-number">5.1.</span> <span class="nav-text">Single Descending Key Index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compound-Descending-Key-Index"><span class="nav-number">5.2.</span> <span class="nav-text">Compound Descending Key Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compound-Indexes"><span class="nav-number">6.</span> <span class="nav-text">Compound Indexes</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NOTE-1"><span class="nav-number">6.0.0.1.</span> <span class="nav-text">NOTE</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Text-Indexes"><span class="nav-number">7.</span> <span class="nav-text">Text Indexes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashed-Index"><span class="nav-number">8.</span> <span class="nav-text">Hashed Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Geospatial-Indexes"><span class="nav-number">9.</span> <span class="nav-text">Geospatial Indexes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2dsphere"><span class="nav-number">9.1.</span> <span class="nav-text">2dsphere</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2d"><span class="nav-number">9.2.</span> <span class="nav-text">2d</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#IMPORTANT"><span class="nav-number">9.2.0.1.</span> <span class="nav-text">IMPORTANT</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#geoHaystack"><span class="nav-number">9.3.</span> <span class="nav-text">geoHaystack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IndexOptions"><span class="nav-number">10.</span> <span class="nav-text">IndexOptions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Unique-Index"><span class="nav-number">10.1.</span> <span class="nav-text">Unique Index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Partial-Index"><span class="nav-number">10.2.</span> <span class="nav-text">Partial Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-a-List-of-Indexes-on-a-Collection"><span class="nav-number">11.</span> <span class="nav-text">Get a List of Indexes on a Collection</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">松子</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/index/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-01-31 22:58:12 / Modified: 22:57:43" itemprop="dateCreated datePublished" datetime="2021-01-31T22:58:12+08:00">2021-01-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li>Create Indexes</li>
+</ul>
+<h2 id="Create-Indexes"><a href="#Create-Indexes" class="headerlink" title="Create Indexes"></a>Create Indexes</h2><p><a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/indexes">Indexes</a> support the efficient execution of queries in MongoDB. To create an <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/indexes">index</a> on a field or fields, pass an index specification document to the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#createIndex(org.bson.conversions.Bson)"><code>MongoCollection.createIndex()</code></a> method.</p>
+<p>The MongoDB Java Driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes</code></a> class that includes static factory methods to create index specification documents for the various MongoDB Index key types.</p>
+<h5 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h5><p>MongoDB only creates an index if an index of the same specification does not already exist.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ul>
+<li><p>Include the following import statements:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClients;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> org.bson.Document;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Indexes;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.IndexOptions;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Filters;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Connect-to-a-MongoDB-Deployment"><a href="#Connect-to-a-MongoDB-Deployment" class="headerlink" title="Connect to a MongoDB Deployment"></a>Connect to a MongoDB Deployment</h2><p>Connect to a MongoDB deployment and declare and define a <code>MongoDatabase</code> and a <code>MongoCollection</code> instances.</p>
+<p>For example, include the following code to connect to a standalone MongoDB deployment running on localhost on port <code>27017</code> and define <code>database</code> to refer to the <code>test</code> database and <code>collection</code> to refer to the <code>restaurants</code> collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create();</span><br><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>For additional information on connecting to MongoDB, see <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver-async/tutorials/connect-to-mongodb/">Connect to MongoDB</a>.</p>
+<h2 id="Ascending-Index"><a href="#Ascending-Index" class="headerlink" title="Ascending Index"></a>Ascending Index</h2><p>To create a specification for an ascending index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes.ascending</code></a> static helper methods.</p>
+<h3 id="Single-Ascending-Index"><a href="#Single-Ascending-Index" class="headerlink" title="Single Ascending Index"></a>Single Ascending Index</h3><p>The following example creates an ascending index on the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.ascending(<span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Compound-Ascending-Index"><a href="#Compound-Ascending-Index" class="headerlink" title="Compound Ascending Index"></a>Compound Ascending Index</h3><p>The following example creates an ascending <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-compound">compound index</a> on the <code>stars</code> field and the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.ascending(<span class="string">&quot;stars&quot;</span>, <span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>For an alternative way to create a compound index, see <a href="#compound-indexes">Compound Indexes</a>.</p>
+<h2 id="Descending-Index"><a href="#Descending-Index" class="headerlink" title="Descending Index"></a>Descending Index</h2><p>To create a specification of a descending index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes.descending</code></a> static helper methods.</p>
+<h3 id="Single-Descending-Key-Index"><a href="#Single-Descending-Key-Index" class="headerlink" title="Single Descending Key Index"></a>Single Descending Key Index</h3><p>The following example creates a descending index on the <code>stars</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.descending(<span class="string">&quot;stars&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Compound-Descending-Key-Index"><a href="#Compound-Descending-Key-Index" class="headerlink" title="Compound Descending Key Index"></a>Compound Descending Key Index</h3><p>The following example creates a descending <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-compound">compound index</a> on the <code>stars</code> field and the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.descending(<span class="string">&quot;stars&quot;</span>, <span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>For an alternative way to create a compound index, see <a href="#compound-indexes">Compound Indexes</a>.</p>
+<h2 id="Compound-Indexes"><a href="#Compound-Indexes" class="headerlink" title="Compound Indexes"></a>Compound Indexes</h2><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-compound">compound index</a>, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes.compoundIndex</code></a> static helper methods.</p>
+<h5 id="NOTE-1"><a href="#NOTE-1" class="headerlink" title="NOTE"></a>NOTE</h5><p>To create a specification for a compound index where all the keys are ascending, you can use the <a href="#compound-ascending-key-index"><code>ascending()</code></a> method. To create a specification for a compound index where all the keys are descending, you can use the <a href="##compound-descending-key-index"><code>descending()</code></a> method.</p>
+<p>The following example creates a compound index with the <code>stars</code> field in descending order and the <code>name</code> field in ascending order:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.compoundIndex(Indexes.descending(<span class="string">&quot;stars&quot;</span>), Indexes.ascending(<span class="string">&quot;name&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Text-Indexes"><a href="#Text-Indexes" class="headerlink" title="Text Indexes"></a>Text Indexes</h2><p>MongoDB provides <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-text">text indexes</a> to support text search of string content. Text indexes can include any field whose value is a string or an array of string elements. To create a specification for a text index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#text(java.lang.String)"><code>Indexes.text</code></a> static helper method.</p>
+<p>The following example creates a text index on the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.text(<span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hashed-Index"><a href="#Hashed-Index" class="headerlink" title="Hashed Index"></a>Hashed Index</h2><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-hashed">hashed index</a> index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#hashed(java.lang.String)"><code>Indexes.hashed</code></a> static helper method.</p>
+<p>The following example creates a hashed index on the <code>_id</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.hashed(<span class="string">&quot;_id&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Geospatial-Indexes"><a href="#Geospatial-Indexes" class="headerlink" title="Geospatial Indexes"></a>Geospatial Indexes</h2><p>To support geospatial queries, MongoDB supports various <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/applications/geospatial-indexes">geospatial indexes</a>.</p>
+<h3 id="2dsphere"><a href="#2dsphere" class="headerlink" title="2dsphere"></a><code>2dsphere</code></h3><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/2dsphere"><code>2dsphere</code> index</a>, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)"><code>Indexes.geo2dsphere</code></a> static helper methods.</p>
+<p>The following example creates a <code>2dsphere</code> index on the <code>&quot;contact.location&quot;</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.geo2dsphere(<span class="string">&quot;contact.location&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="2d"><a href="#2d" class="headerlink" title="2d"></a><code>2d</code></h3><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/2d/"><code>2d</code> index</a> index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#geo2d(java.lang.String)"><code>Indexes.geo2d</code></a> static helper method.</p>
+<h5 id="IMPORTANT"><a href="#IMPORTANT" class="headerlink" title="IMPORTANT"></a>IMPORTANT</h5><p>A 2d index is for data stored as points on a two-dimensional plane and is intended for legacy coordinate pairs used in MongoDB 2.2 and earlier.</p>
+<p>The following example creates a <code>2d</code> index on the <code>&quot;contact.location&quot;</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.geo2d(<span class="string">&quot;contact.location&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="geoHaystack"><a href="#geoHaystack" class="headerlink" title="geoHaystack"></a>geoHaystack</h3><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/geohaystack/"><code>geoHaystack</code> index</a>, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#geoHaystack(java.lang.String,org.bson.conversions.Bson)"><code>Indexes.geoHaystack</code></a> method. <code>geoHaystack</code> indexes can improve performance on queries that use flat geometries.</p>
+<p>The following example creates a <code>geoHaystack</code> index on the <code>contact.location</code> field and an ascending index on the <code>stars</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IndexOptions haystackOption = <span class="keyword">new</span> IndexOptions().bucketSize(<span class="number">1.0</span>);</span><br><span class="line">collection.createIndex(</span><br><span class="line">         Indexes.geoHaystack(<span class="string">&quot;contact.location&quot;</span>, Indexes.ascending(<span class="string">&quot;stars&quot;</span>)),</span><br><span class="line">         haystackOption);</span><br></pre></td></tr></table></figure>
+
+<p>To query a haystack index, use the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/command/geoSearch"><code>geoSearch</code></a> command.</p>
+<h2 id="IndexOptions"><a href="#IndexOptions" class="headerlink" title="IndexOptions"></a>IndexOptions</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.client.model.IndexOptions;</span><br></pre></td></tr></table></figure>
+
+<p>In addition to the index specification document, the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#createIndex(org.bson.conversions.Bson)"><code>createIndex()</code></a> method can take an index options document, such as to create unique indexes or partial indexes.</p>
+<p>The Java Driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/IndexOptions.html">IndexOptions</a> class to specify various index options.</p>
+<h3 id="Unique-Index"><a href="#Unique-Index" class="headerlink" title="Unique Index"></a>Unique Index</h3><p>The following specifies a <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/IndexOptions.html#unique(boolean)"><code>unique(true)</code></a> option to create a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-unique">unique index</a> on the <code>name</code> and <code>stars</code> fields:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IndexOptions indexOptions = <span class="keyword">new</span> IndexOptions().unique(<span class="keyword">true</span>);</span><br><span class="line">collection.createIndex(Indexes.ascending(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;stars&quot;</span>), indexOptions);</span><br></pre></td></tr></table></figure>
+
+<p>For more information on unique indexes, see <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-unique">Unique Indexes</a>.</p>
+<h3 id="Partial-Index"><a href="#Partial-Index" class="headerlink" title="Partial Index"></a>Partial Index</h3><p>To create a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-partial/">partial index</a>, include a <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/IndexOptions.html#partialFilterExpression(org.bson.conversions.Bson)">partialFilterExpression</a> as an index option.</p>
+<p>The following example creates a partial index on documents that have <code>status</code> field equal to <code>&quot;A&quot;</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IndexOptions partialFilterIndexOptions = <span class="keyword">new</span> IndexOptions()</span><br><span class="line">                .partialFilterExpression(Filters.exists(<span class="string">&quot;contact.email&quot;</span>));</span><br><span class="line">collection.createIndex(</span><br><span class="line">                Indexes.descending(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;stars&quot;</span>), partialFilterIndexOptions);</span><br></pre></td></tr></table></figure>
+
+<p>For more information on partial indexes, see <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-partial/">Partial Indexes</a>.</p>
+<h2 id="Get-a-List-of-Indexes-on-a-Collection"><a href="#Get-a-List-of-Indexes-on-a-Collection" class="headerlink" title="Get a List of Indexes on a Collection"></a>Get a List of Indexes on a Collection</h2><p>Use the <code>listIndexes()</code> method to get a list of indexes. The following lists the indexes on the collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Document index : collection.listIndexes()) &#123;</span><br><span class="line">    System.out.println(index.toJson());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>For other index options, see <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-properties">MongoDB Manual</a> .</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/24/For_work/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/31/Databases%20and%20Collections/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">松子</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>

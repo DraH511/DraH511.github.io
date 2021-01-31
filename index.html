@@ -172,7 +172,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -202,6 +202,546 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/Bulk%20operations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/31/Bulk%20operations/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-01-31 23:01:30 / Modified: 23:01:46" itemprop="dateCreated datePublished" datetime="2021-01-31T23:01:30+08:00">2021-01-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-write-operations/">Write Operations</a> </li>
+<li>Bulk Writes</li>
+</ul>
+<h2 id="Bulk-operations"><a href="#Bulk-operations" class="headerlink" title="Bulk operations"></a>Bulk operations</h2><p>Starting in version 2.6, MongoDB servers support bulk write commands for insert, update, and delete in a way that allows the driver to implement the correct semantics for BulkWriteResult and BulkWriteException.</p>
+<p>There are two types of bulk operations, ordered and unordered bulk operations.</p>
+<ol>
+<li>Ordered bulk operations execute all the operation in order and error out on the first write error.</li>
+<li>Unordered bulk operations execute all the operations and report any the errors. Unordered bulk operations do not guarantee order of execution.</li>
+</ol>
+<p>The following code provide examples using ordered and unordered operations:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Ordered bulk operation - order is guaranteed</span></span><br><span class="line">collection.bulkWrite(</span><br><span class="line">  Arrays.asList(<span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">4</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">5</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">6</span>)),</span><br><span class="line">                <span class="keyword">new</span> UpdateOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">1</span>),</span><br><span class="line">                                     <span class="keyword">new</span> Document(<span class="string">&quot;$set&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;x&quot;</span>, <span class="number">2</span>))),</span><br><span class="line">                <span class="keyword">new</span> DeleteOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">2</span>)),</span><br><span class="line">                <span class="keyword">new</span> ReplaceOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>),</span><br><span class="line">                                      <span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>).append(<span class="string">&quot;x&quot;</span>, <span class="number">4</span>))));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">// 2. Unordered bulk operation - no guarantee of order of operation</span></span><br><span class="line">collection.bulkWrite(</span><br><span class="line">  Arrays.asList(<span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">4</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">5</span>)),</span><br><span class="line">                <span class="keyword">new</span> InsertOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">6</span>)),</span><br><span class="line">                <span class="keyword">new</span> UpdateOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">1</span>),</span><br><span class="line">                                     <span class="keyword">new</span> Document(<span class="string">&quot;$set&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;x&quot;</span>, <span class="number">2</span>))),</span><br><span class="line">                <span class="keyword">new</span> DeleteOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">2</span>)),</span><br><span class="line">                <span class="keyword">new</span> ReplaceOneModel&lt;&gt;(<span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>),</span><br><span class="line">                                      <span class="keyword">new</span> Document(<span class="string">&quot;_id&quot;</span>, <span class="number">3</span>).append(<span class="string">&quot;x&quot;</span>, <span class="number">4</span>))),</span><br><span class="line">  <span class="keyword">new</span> BulkWriteOptions().ordered(<span class="keyword">false</span>));</span><br></pre></td></tr></table></figure>
+
+<h5 id="IMPORTANT"><a href="#IMPORTANT" class="headerlink" title="IMPORTANT"></a>IMPORTANT</h5><p>Use of the bulkWrite methods is not recommended when connected to pre-2.6 MongoDB servers. Although these methods will work for pre-2.6 servers, performance will suffer as each write operation executes one at a time.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/Write%20Operations/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/31/Write%20Operations/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-01-31 23:00:31 / Modified: 23:00:56" itemprop="dateCreated datePublished" datetime="2021-01-31T23:00:31+08:00">2021-01-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li>Write Operations</li>
+</ul>
+<h2 id="Write-Operations-Insert-Update-Replace-Delete"><a href="#Write-Operations-Insert-Update-Replace-Delete" class="headerlink" title="Write Operations (Insert, Update, Replace, Delete)"></a>Write Operations (Insert, Update, Replace, Delete)</h2><p>Perform write operations to insert new documents into a collection, update existing document or documents in a collection, replace an existing document in a collection, or delete existing document or documents from a collection.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ul>
+<li><p>The example below requires a <code>restaurants</code> collection in the <code>test</code> database. To create and populate the collection, follow the directions in <a target="_blank" rel="noopener" href="https://github.com/mongodb/docs-assets/tree/drivers">github</a>.</p>
+</li>
+<li><p>Include the following import statements:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.*;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClients;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.clientMongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Filters;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.mongodb.client.model.Filters.*;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.mongodb.client.model.Updates.*;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.UpdateOptions;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.result.*;</span><br><span class="line"><span class="keyword">import</span> org.bson.Document;</span><br><span class="line"><span class="keyword">import</span> org.bson.types.ObjectId;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Connect-to-a-MongoDB-Deployment"><a href="#Connect-to-a-MongoDB-Deployment" class="headerlink" title="Connect to a MongoDB Deployment"></a>Connect to a MongoDB Deployment</h2><p>Connect to a MongoDB deployment and declare and define a <code>MongoDatabase</code> instance.</p>
+<p>For example, include the following code to connect to a standalone MongoDB deployment running on localhost on port <code>27017</code> and define <code>database</code> to refer to the <code>test</code> database and <code>collection</code> to refer to the <code>restaurants</code> collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create();</span><br><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>For additional information on connecting to MongoDB, see <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver-async/tutorials/connect-to-mongodb/">Connect to MongoDB</a>.</p>
+<h2 id="Insert-New-Document"><a href="#Insert-New-Document" class="headerlink" title="Insert New Document"></a>Insert New Document</h2><p>To insert a single document into the collection, you can use the collection’s <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#insertOne(TDocument)"><code>insertOne()</code></a> method.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Document document = <span class="keyword">new</span> Document(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;Café Con Leche&quot;</span>)</span><br><span class="line">               .append(<span class="string">&quot;contact&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;phone&quot;</span>, <span class="string">&quot;228-555-0149&quot;</span>)</span><br><span class="line">                                       .append(<span class="string">&quot;email&quot;</span>, <span class="string">&quot;cafeconleche@example.com&quot;</span>)</span><br><span class="line">                                       .append(<span class="string">&quot;location&quot;</span>,Arrays.asList(-<span class="number">73.92502</span>, <span class="number">40.8279556</span>)))</span><br><span class="line">               .append(<span class="string">&quot;stars&quot;</span>, <span class="number">3</span>)</span><br><span class="line">               .append(<span class="string">&quot;categories&quot;</span>, Arrays.asList(<span class="string">&quot;Bakery&quot;</span>, <span class="string">&quot;Coffee&quot;</span>, <span class="string">&quot;Pastries&quot;</span>));</span><br><span class="line"></span><br><span class="line">collection.insertOne(document);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h5><p>If no top-level <code>_id</code> field is specified in the document, the Java driver automatically adds the <code>_id</code> field to the inserted document.</p>
+<h2 id="Insert-Multiple-Documents"><a href="#Insert-Multiple-Documents" class="headerlink" title="Insert Multiple Documents"></a>Insert Multiple Documents</h2><p>To add multiple documents, you can use the collection’s <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#insertMany(java.util.List)"><code>insertMany()</code></a> method, which takes a list of documents to insert.</p>
+<p>The following example inserts two documents to the collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Document doc1 = <span class="keyword">new</span> Document(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;Amarcord Pizzeria&quot;</span>)</span><br><span class="line">               .append(<span class="string">&quot;contact&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;phone&quot;</span>, <span class="string">&quot;264-555-0193&quot;</span>)</span><br><span class="line">                                       .append(<span class="string">&quot;email&quot;</span>, <span class="string">&quot;amarcord.pizzeria@example.net&quot;</span>)</span><br><span class="line">                                       .append(<span class="string">&quot;location&quot;</span>,Arrays.asList(-<span class="number">73.88502</span>, <span class="number">40.749556</span>)))</span><br><span class="line">               .append(<span class="string">&quot;stars&quot;</span>, <span class="number">2</span>)</span><br><span class="line">               .append(<span class="string">&quot;categories&quot;</span>, Arrays.asList(<span class="string">&quot;Pizzeria&quot;</span>, <span class="string">&quot;Italian&quot;</span>, <span class="string">&quot;Pasta&quot;</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Document doc2 = <span class="keyword">new</span> Document(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;Blue Coffee Bar&quot;</span>)</span><br><span class="line">               .append(<span class="string">&quot;contact&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;phone&quot;</span>, <span class="string">&quot;604-555-0102&quot;</span>)</span><br><span class="line">                                       .append(<span class="string">&quot;email&quot;</span>, <span class="string">&quot;bluecoffeebar@example.com&quot;</span>)</span><br><span class="line">                                       .append(<span class="string">&quot;location&quot;</span>,Arrays.asList(-<span class="number">73.97902</span>, <span class="number">40.8479556</span>)))</span><br><span class="line">               .append(<span class="string">&quot;stars&quot;</span>, <span class="number">5</span>)</span><br><span class="line">               .append(<span class="string">&quot;categories&quot;</span>, Arrays.asList(<span class="string">&quot;Coffee&quot;</span>, <span class="string">&quot;Pastries&quot;</span>));</span><br><span class="line"></span><br><span class="line">List&lt;Document&gt; documents = <span class="keyword">new</span> ArrayList&lt;Document&gt;();</span><br><span class="line">documents.add(doc1);</span><br><span class="line">documents.add(doc2);</span><br><span class="line"></span><br><span class="line">collection.insertMany(documents);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE-1"><a href="#NOTE-1" class="headerlink" title="NOTE"></a>NOTE</h5><p>If no top-level <code>_id</code> field is specified in the documents, the Java driver automatically adds the <code>_id</code> field to the inserted documents.</p>
+<h2 id="Update-Existing-Documents"><a href="#Update-Existing-Documents" class="headerlink" title="Update Existing Documents"></a>Update Existing Documents</h2><p>To update existing documents in a collection, you can use the collection’s <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)"><code>updateOne()</code></a> or <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/async/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)"><code>updateMany</code></a> methods.</p>
+<h3 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h3><p>You can pass in a filter document to the methods to specify which documents to update. The filter document specification is the same as for <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-read-operations/">read operations</a>. To facilitate creating filter objects, Java driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Filters.html"><code>Filters</code></a> helper.</p>
+<p>To specify an empty filter (i.e. match all documents in a collection), use an empty <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/org/bson/Document.html"><code>Document</code></a> object.</p>
+<h3 id="Update-Operators"><a href="#Update-Operators" class="headerlink" title="Update Operators"></a>Update Operators</h3><p>To change a field in a document, MongoDB provides <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/operator/update">update operators</a>. To specify the modification to perform using the update operators, use an updates document.</p>
+<p>To facilitate the creation of updates documents, the Java driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Updates.html"><code>Updates</code></a> class.</p>
+<h5 id="IMPORTANT"><a href="#IMPORTANT" class="headerlink" title="IMPORTANT"></a>IMPORTANT</h5><p>The <code>_id</code> field is immutable; i.e. you cannot change the value of the <code>_id</code> field.</p>
+<h3 id="Update-a-Single-Document"><a href="#Update-a-Single-Document" class="headerlink" title="Update a Single Document"></a>Update a Single Document</h3><p>The <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bson,org.bson.conversions.Bson)"><code>updateOne()</code></a> method updates at most a single document, even if the filter condition matches multiple documents in the collection.</p>
+<p>The following operation on the <code>restaurants</code> collection updates a document whose <code>_id</code> field equals <code>ObjectId(&quot;57506d62f57802807471dd41&quot;)</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">collection.updateOne(</span><br><span class="line">                eq(<span class="string">&quot;_id&quot;</span>, <span class="keyword">new</span> ObjectId(<span class="string">&quot;57506d62f57802807471dd41&quot;</span>)),</span><br><span class="line">                combine(set(<span class="string">&quot;stars&quot;</span>, <span class="number">1</span>), set(<span class="string">&quot;contact.phone&quot;</span>, <span class="string">&quot;228-555-9999&quot;</span>), currentDate(<span class="string">&quot;lastModified&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>Specifically, the operation uses:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Updates.html#set(java.lang.String,TItem)"><code>Updates.set</code></a> to set the value of the <code>stars</code> field to <code>1</code> and the <code>contact.phone</code> field to <code>&quot;228-555-9999&quot;</code>, and</li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Updates.html#currentDate(java.lang.String)"><code>Updates.currentDate</code></a> to modify the <code>lastModified</code> field to the current date. If the <code>lastModified</code> field does not exist, the operator adds the field to the document.</li>
+</ul>
+<h5 id="TIP"><a href="#TIP" class="headerlink" title="TIP"></a>TIP</h5><p>In some cases where you may need to update many fields in a document, it may be more efficient to replace the document. See <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-write-operations/#replace-a-document">Replace a Document</a>.</p>
+<h3 id="Update-Multiple-Documents"><a href="#Update-Multiple-Documents" class="headerlink" title="Update Multiple Documents"></a>Update Multiple Documents</h3><p>The <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/async/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)"><code>updateMany</code></a> method updates all documents that match the filter condition.</p>
+<p>The following operation on the <code>restaurants</code> collection updates all documents whose <code>stars</code> field equals <code>2</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">collection.updateMany(</span><br><span class="line">              eq(<span class="string">&quot;stars&quot;</span>, <span class="number">2</span>),</span><br><span class="line">              combine(set(<span class="string">&quot;stars&quot;</span>, <span class="number">0</span>), currentDate(<span class="string">&quot;lastModified&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>Specifically, the operation uses:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Updates.html#set(java.lang.String,TItem)"><code>Updates.set</code></a> to set the value of the <code>stars</code> field to <code>0</code> , and</li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Updates.html#currentDate(java.lang.String)"><code>Updates.currentDate</code></a> to modify the <code>lastModified</code> field to the current date. If the <code>lastModified</code> field does not exist, the operator adds the field to the document.</li>
+</ul>
+<h3 id="Update-Options"><a href="#Update-Options" class="headerlink" title="Update Options"></a>Update Options</h3><p>With the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#updateOne(org.bson.conversions.Bsonorg.bson.conversions.Bson)"><code>updateOne()</code></a> and <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/async/client/MongoCollection.html#updateMany(org.bson.conversions.Bson,org.bson.conversions.Bson)"><code>updateMany</code></a> methods, you can include an <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/UpdateOptions.html"><code>UpdateOptions</code></a> document to specify the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/method/db.collection.update/#upsert-option"><code>upsert</code></a> option or the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/document-validation/#bypass-document-validation"><code>bypassDocumentationValidation</code></a> option.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">collection.updateOne(</span><br><span class="line">                eq(<span class="string">&quot;_id&quot;</span>, <span class="number">1</span>),</span><br><span class="line">                combine(set(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;Fresh Breads and Tulips&quot;</span>), currentDate(<span class="string">&quot;lastModified&quot;</span>)),</span><br><span class="line">                <span class="keyword">new</span> UpdateOptions().upsert(<span class="keyword">true</span>).bypassDocumentValidation(<span class="keyword">true</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Replace-an-Existing-Document"><a href="#Replace-an-Existing-Document" class="headerlink" title="Replace an Existing Document"></a>Replace an Existing Document</h2><p>To replace an existing document in a collection, you can use the collection’s <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)"><code>replaceOne</code></a> method.</p>
+<h5 id="IMPORTANT-1"><a href="#IMPORTANT-1" class="headerlink" title="IMPORTANT"></a>IMPORTANT</h5><p>The <code>_id</code> field is immutable; i.e. you cannot replace the <code>_id</code> field value.</p>
+<h3 id="Filters-1"><a href="#Filters-1" class="headerlink" title="Filters"></a>Filters</h3><p>You can pass in a filter document to the method to specify which document to replace. The filter document specification is the same as for <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-read-operations/">read operations</a>. To facilitate creating filter objects, Java driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Filters.html"><code>Filters</code></a> helper.</p>
+<p>To specify an empty filter (i.e. match all documents in a collection), use an empty <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/org/bson/Document.html"><code>Document</code></a> object.</p>
+<p>The <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)"><code>replaceOne</code></a> method replaces at most a single document, even if the filter condition matches multiple documents in the collection.</p>
+<h3 id="Replace-a-Document"><a href="#Replace-a-Document" class="headerlink" title="Replace a Document"></a>Replace a Document</h3><p>To replace a document, pass a new document to the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)"><code>replaceOne</code></a> method.</p>
+<h5 id="IMPORTANT-2"><a href="#IMPORTANT-2" class="headerlink" title="IMPORTANT"></a>IMPORTANT</h5><p>The replacement document can have different fields from the original document. In the replacement document, you can omit the <code>_id</code> field since the <code>_id</code> field is immutable; however, if you do include the <code>_id</code> field, you cannot specify a different value for the <code>_id</code> field.</p>
+<p>The following operation on the <code>restaurants</code> collection replaces the document whose <code>_id</code> field equals <code>ObjectId(&quot;57506d62f57802807471dd41&quot;)</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">collection.replaceOne(</span><br><span class="line">                eq(<span class="string">&quot;_id&quot;</span>, <span class="keyword">new</span> ObjectId(<span class="string">&quot;57506d62f57802807471dd41&quot;</span>)),</span><br><span class="line">                <span class="keyword">new</span> Document(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;Green Salads Buffet&quot;</span>)</span><br><span class="line">                        .append(<span class="string">&quot;contact&quot;</span>, <span class="string">&quot;TBD&quot;</span>)</span><br><span class="line">                        .append(<span class="string">&quot;categories&quot;</span>, Arrays.asList(<span class="string">&quot;Salads&quot;</span>, <span class="string">&quot;Health Foods&quot;</span>, <span class="string">&quot;Buffet&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>See also <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-write-operations/#update-a-single-document">Update a Document</a>.</p>
+<h3 id="Update-Options-1"><a href="#Update-Options-1" class="headerlink" title="Update Options"></a>Update Options</h3><p>With the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)"><code>replaceOne</code></a>, you can include an <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/UpdateOptions.html"><code>UpdateOptions</code></a> document to specify the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/method/db.collection.update/#upsert-option"><code>upsert</code></a> option or the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/document-validation/#bypass-document-validation"><code>bypassDocumentationValidation</code></a> option.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">collection.replaceOne(</span><br><span class="line">                eq(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;Orange Patisserie and Gelateria&quot;</span>),</span><br><span class="line">                <span class="keyword">new</span> Document(<span class="string">&quot;stars&quot;</span>, <span class="number">5</span>)</span><br><span class="line">                        .append(<span class="string">&quot;contact&quot;</span>, <span class="string">&quot;TBD&quot;</span>)</span><br><span class="line">                        .append(<span class="string">&quot;categories&quot;</span>, Arrays.asList(<span class="string">&quot;Cafe&quot;</span>, <span class="string">&quot;Pastries&quot;</span>, <span class="string">&quot;Ice Cream&quot;</span>)),</span><br><span class="line">                <span class="keyword">new</span> UpdateOptions().upsert(<span class="keyword">true</span>).bypassDocumentValidation(<span class="keyword">true</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Delete-Documents"><a href="#Delete-Documents" class="headerlink" title="Delete Documents"></a>Delete Documents</h2><p>To delete documents in a collection, you can use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)"><code>deleteOne</code></a> and <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)"><code>deleteMany</code></a> methods.</p>
+<h3 id="Filters-2"><a href="#Filters-2" class="headerlink" title="Filters"></a>Filters</h3><p>You can pass in a filter document to the methods to specify which documents to delete. The filter document specification is the same as for <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-read-operations/">read operations</a>. To facilitate creating filter objects, Java driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Filters.html"><code>Filters</code></a> helper.</p>
+<p>To specify an empty filter (i.e. match all documents in a collection), use an empty <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/org/bson/Document.html"><code>Document</code></a> object.</p>
+<h3 id="Delete-a-Single-Document"><a href="#Delete-a-Single-Document" class="headerlink" title="Delete a Single Document"></a>Delete a Single Document</h3><p>The <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)"><code>deleteOne</code></a> method deletes at most a single document, even if the filter condition matches multiple documents in the collection.</p>
+<p>The following operation on the <code>restaurants</code> collection deletes a document whose <code>_id</code> field equals <code>ObjectId(&quot;57506d62f57802807471dd41&quot;)</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.deleteOne(eq(<span class="string">&quot;_id&quot;</span>, <span class="keyword">new</span> ObjectId(<span class="string">&quot;57506d62f57802807471dd41&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Delete-Multiple-Documents"><a href="#Delete-Multiple-Documents" class="headerlink" title="Delete Multiple Documents"></a>Delete Multiple Documents</h3><p>The <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#deleteMany(org.bson.conversions.Bson)"><code>deleteMany</code></a> method deletes all documents that match the filter condition.</p>
+<p>The following operation on the <code>restaurants</code> collection deletes all documents whose <code>stars</code> field equals <code>4</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.deleteMany(eq(<span class="string">&quot;stars&quot;</span>, <span class="number">4</span>));</span><br></pre></td></tr></table></figure>
+
+<p>See also <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/databases-collections/">Drop a Collection</a>.</p>
+<h2 id="Write-Concern"><a href="#Write-Concern" class="headerlink" title="Write Concern"></a>Write Concern</h2><p><a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/write-concern">Write concern</a> describes the level of acknowledgement requested from MongoDB for write operations.</p>
+<p>Applications can configure <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/write-concern">write concern</a> at three levels:</p>
+<ul>
+<li><p>In a <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClient.html"><code>MongoClient()</code></a></p>
+<ul>
+<li>Via <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClientOptions.html"><code>MongoClientOptions</code></a>, as in the following example:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MongoClientOptions options = MongoClientOptions.builder().writeConcern(WriteConcern.MAJORITY).build();</span><br><span class="line">MongoClient mongoClient = <span class="keyword">new</span> MongoClient(Arrays.asList(</span><br><span class="line">      <span class="keyword">new</span> ServerAddress(<span class="string">&quot;host1&quot;</span>, <span class="number">27017</span>),</span><br><span class="line">      <span class="keyword">new</span> ServerAddress(<span class="string">&quot;host1&quot;</span>, <span class="number">27018</span>)), options);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Via <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc//com/mongodb/MongoClientURI.html"><code>MongoClientURI</code></a>, as in the following example:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = <span class="keyword">new</span> MongoClient(</span><br><span class="line">  <span class="keyword">new</span> MongoClientURI(<span class="string">&quot;mongodb://host1:27017,host2:27017/?w=majority&quot;</span>));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In a <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html"><code>MongoDatabase</code></a> via its <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withWriteConcern(com.mongodb.WriteConcern)"><code>withWriteConcern</code></a> method, as in the following example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>).withWriteConcern(WriteConcern.MAJORITY);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In a <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html"><code>MongoCollection</code></a> via its <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withWriteConcern(com.mongodb.WriteConcern)"><code>withWriteConcern</code></a> method, as in the following example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>).withWriteConcern(WriteConcern.MAJORITY);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>MongoDatabase</code> and <code>MongoCollection</code> instances are immutable. Calling <code>.withWriteConcern()</code> on an existing <code>MongoDatabase</code> or <code>MongoCollection</code> instance returns a new instance and does not affect the instance on which the method is called.</p>
+<p>For example, in the following, the <code>collWithWriteConcern</code> instance has the write concern of majority whereas the write concern of the <code>collection</code> is unaffected.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collWithWriteConcern = collection</span><br><span class="line">                                                  .withWriteConcern(WriteConcern.MAJORITY);</span><br></pre></td></tr></table></figure>
+
+<p>You can build <code>MongoClientOptions</code>, <code>MongoDatabase</code>, or <code>MongoCollection</code> to include a combination of write concern, <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-concern">read concern</a>, and <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-preference">read preference</a>.</p>
+<p>For example, the following sets all three at the collection level:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>)</span><br><span class="line">                .withReadPreference(ReadPreference.primary())</span><br><span class="line">                .withReadConcern(ReadConcern.MAJORITY)</span><br><span class="line">                .withWriteConcern(WriteConcern.MAJORITY);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/Databases%20and%20Collections/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/31/Databases%20and%20Collections/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-01-31 22:59:10 / Modified: 22:59:55" itemprop="dateCreated datePublished" datetime="2021-01-31T22:59:10+08:00">2021-01-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li>Databases and Collections</li>
+</ul>
+<h2 id="Databases-and-Collections"><a href="#Databases-and-Collections" class="headerlink" title="Databases and Collections"></a>Databases and Collections</h2><p>MongoDB stores documents in collections; the collections in databases.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ul>
+<li><p>Include following import statements:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClients;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.mongodb.client.model.Filters.*;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.CreateCollectionOptions;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.ValidationOptions;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Connect-to-a-MongoDB-Deployment"><a href="#Connect-to-a-MongoDB-Deployment" class="headerlink" title="Connect to a MongoDB Deployment"></a>Connect to a MongoDB Deployment</h2><p>Connect to a running MongoDB deployment.</p>
+<p>For example, include the following code to connect to a standalone MongoDB deployment running on localhost on port <code>27017</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create();</span><br></pre></td></tr></table></figure>
+
+<p>For more information on connecting to running MongoDB deployments, see <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/connect-to-mongodb/">Connect to MongoDB</a>.</p>
+<h2 id="Access-a-Database"><a href="#Access-a-Database" class="headerlink" title="Access a Database"></a>Access a Database</h2><p>Once you have a <code>MongoClient</code> instance connected to a MongoDB deployment, use its <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClient.html#getDatabase(java.lang.String)"><code>getDatabase()</code></a> method to access a database.</p>
+<p>Specify the name of the database to the <code>getDatabase()</code> method. If a database does not exist, MongoDB creates the database when you first store data for that database.</p>
+<p>The following example accesses the <code>test</code> database:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h5><p><code>MongoDatabase</code> instances are immutable.</p>
+<h2 id="Access-a-Collection"><a href="#Access-a-Collection" class="headerlink" title="Access a Collection"></a>Access a Collection</h2><p>Once you have a <code>MongoDatabase</code> instance, use its <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String)"><code>getCollection()</code></a> method to access a collection.</p>
+<p>Specify the name of the collection to the <code>getCollection()</code> method.</p>
+<p>For example, using the <code>database</code> instance, the following statement accesses the collection named <code>myTestCollection</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; coll = database.getCollection(<span class="string">&quot;myTestCollection&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE-1"><a href="#NOTE-1" class="headerlink" title="NOTE"></a>NOTE</h5><p><code>MongoCollection</code> instances are immutable.</p>
+<p>If a collection does not exist, MongoDB creates the collection when you first store data for that collection.</p>
+<p>You can also explicitly create a collection with various options, such as setting the maximum size or the documentation validation rules.</p>
+<h2 id="Explicitly-Create-a-Collection"><a href="#Explicitly-Create-a-Collection" class="headerlink" title="Explicitly Create a Collection"></a>Explicitly Create a Collection</h2><p>The MongoDB driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#createCollection(java.lang.String,com.mongodb.client.model.CreateCollectionOptions)"><code>createCollection()</code></a> method to explicitly create a collection. When you explicitly create a collection, you can specify various collection options, such as a maximum size or the documentation validation rules, with the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/CreateCollectionOptions.html"><code>CreateCollectionOptions</code></a> class. If you are not specifying these options, you do not need to explicitly create the collection since MongoDB creates new collections when you first store data for the collections.</p>
+<h3 id="Capped-Collection"><a href="#Capped-Collection" class="headerlink" title="Capped Collection"></a>Capped Collection</h3><p>For example, the following operation creates a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/capped-collections">capped collection</a> sized to 1 megabyte:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">database.createCollection(<span class="string">&quot;cappedCollection&quot;</span>,</span><br><span class="line">          <span class="keyword">new</span> CreateCollectionOptions().capped(<span class="keyword">true</span>).sizeInBytes(<span class="number">0x100000</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Document-Validation"><a href="#Document-Validation" class="headerlink" title="Document Validation"></a>Document Validation</h3><p>MongoDB provides the capability to <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/document-validation">validate documents</a> during updates and insertions. Validation rules are specified on a per-collection basis using the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/ValidationOptions.html"><code>ValidationOptions</code></a>, which takes a filter document that specifies the validation rules or expressions.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ValidationOptions collOptions = <span class="keyword">new</span> ValidationOptions().validator(</span><br><span class="line">        Filters.or(Filters.exists(<span class="string">&quot;email&quot;</span>), Filters.exists(<span class="string">&quot;phone&quot;</span>)));</span><br><span class="line">database.createCollection(<span class="string">&quot;contacts&quot;</span>,</span><br><span class="line">        <span class="keyword">new</span> CreateCollectionOptions().validationOptions(collOptions));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Get-A-List-of-Collections"><a href="#Get-A-List-of-Collections" class="headerlink" title="Get A List of Collections"></a>Get A List of Collections</h2><p>You can get a list of the collections in a database using the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#listCollectionNames()"><code>MongoDatabase.listCollectionNames()</code></a> method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (String name : database.listCollectionNames()) &#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Drop-a-Collection"><a href="#Drop-a-Collection" class="headerlink" title="Drop a Collection"></a>Drop a Collection</h2><p>You can drop a collection by using the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#drop()"><code>MongoCollection.drop()</code></a> method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;contacts&quot;</span>);</span><br><span class="line">collection.drop();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Immutability"><a href="#Immutability" class="headerlink" title="Immutability"></a>Immutability</h2><p><code>MongoDatabase</code> and <code>MongoCollection</code> instances are immutable. To create new instances from existing instances that have different property values, such as <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-concern">read concern</a>, <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-preference">read preference</a>, and <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/write-concern">write concern</a>, the <code>MongoDatabase</code> and <code>MongoCollection</code> class provides various methods:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)"><code>MongoDatabase.withReadConcern</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withReadPreference(com.mongodb.ReadPreference)"><code>MongoDatabase.withReadPreference</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withWriteConcern(com.mongodb.WriteConcern)"><code>MongoDatabase.withWriteConcern</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withReadConcern(com.mongodb.ReadConcern)"><code>MongoCollection.withReadConcern</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)"><code>MongoCollection.withReadPreference</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withWriteConcern(com.mongodb.WriteConcern)"><code>MongoCollection.withWriteConcern</code></a></li>
+</ul>
+<p>For details, see <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-read-operations/">Read Operations</a> and <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-write-operations/">Write Operations</a>.</p>
+<h2 id="CodecRegistry"><a href="#CodecRegistry" class="headerlink" title="CodecRegistry"></a>CodecRegistry</h2><p>An overload of the <code>getCollection</code> method allows clients to specify a different class for representing BSON documents. For example, users of the legacy CRUD API from the 2.x driver series may wish to continue using <code>BasicDBObject</code> in order to ease the transition to the new CRUD API:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Pass BasicDBObject.class as the second argument</span></span><br><span class="line">MongoCollection&lt;BasicDBObject&gt; collection = database.getCollection(<span class="string">&quot;mycoll&quot;</span>, BasicDBObject.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">// insert a document</span></span><br><span class="line">BasicDBObject document = <span class="keyword">new</span> BasicDBObject(<span class="string">&quot;x&quot;</span>, <span class="number">1</span>)</span><br><span class="line">collection.insertOne(document);</span><br><span class="line">document.append(<span class="string">&quot;x&quot;</span>, <span class="number">2</span>).append(<span class="string">&quot;y&quot;</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// replace a document</span></span><br><span class="line">collection.replaceOne(Filters.eq(<span class="string">&quot;_id&quot;</span>, document.get(<span class="string">&quot;_id&quot;</span>)), document);</span><br><span class="line"></span><br><span class="line"><span class="comment">// find documents</span></span><br><span class="line">List&lt;BasicDBObject&gt; foundDocument = collection.find().into(<span class="keyword">new</span> ArrayList&lt;BasicDBObject&gt;());</span><br></pre></td></tr></table></figure>
+
+<p>There are two requirements that must be met for any class used in this way:</p>
+<ul>
+<li>a <code>Codec</code> for it must be registered in the <code>MongoCollection</code>’s <code>CodecRegistry</code></li>
+<li>the <code>Codec</code> must be one that encodes and decodes a full BSON document (and not just, for example, a single BSON value like an Int32)</li>
+</ul>
+<p>By default, a <code>MongoCollection</code> is configured with <code>Codec</code>s for three classes:</p>
+<ul>
+<li><code>Document</code></li>
+<li><code>BasicDBObject</code></li>
+<li><code>BsonDocument</code></li>
+</ul>
+<p>Applications, however, are free to register <code>Codec</code> implementations for other classes by customizing the <code>CodecRegistry</code>. New <code>CodecRegistry</code> instances are configurable at three levels:</p>
+<ul>
+<li>In a <code>MongoClient</code> via <code>MongoClientOptions</code></li>
+<li>In a <code>MongoDatabase</code> via its <code>withCodecRegistry</code> method</li>
+<li>In a <code>MongoCollection</code> via its <code>withCodecRegistry</code> method</li>
+</ul>
+<p>Consider the case of encoding and decoding instances of the <code>UUID</code> class. The Java driver by default encodes instances of <code>UUID</code> using a byte ordering that is not compatible with other MongoDB drivers, and changing the default would be quite dangerous. But it is possible for new applications that require interoperability across multiple drivers to be able to change that default, and they can do that with a <code>CodecRegistry</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replaces the default UuidCodec with one that uses the new standard UUID representation</span></span><br><span class="line">CodecRegistry codecRegistry =</span><br><span class="line">CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(<span class="keyword">new</span> UuidCodec(UuidRepresentation.STANDARD)),</span><br><span class="line">                               MongoClientSettings.getDefaultCodecRegistry());</span><br><span class="line"></span><br><span class="line"><span class="comment">// globally</span></span><br><span class="line">MongoClientSettings settings = MongoClientSettings.builder()</span><br><span class="line">        .codecRegistry(codecRegistry).build();</span><br><span class="line">MongoClient client = MongoClients.create(settings);</span><br><span class="line"></span><br><span class="line"><span class="comment">// or per database</span></span><br><span class="line">MongoDatabase database = client.getDatabase(<span class="string">&quot;mydb&quot;</span>)</span><br><span class="line">                               .withCodecRegistry(codecRegistry);</span><br><span class="line"></span><br><span class="line"><span class="comment">// or per collection</span></span><br><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;mycoll&quot;</span>)</span><br><span class="line">                                               .withCodecRegistry(codecRegistry);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE-2"><a href="#NOTE-2" class="headerlink" title="NOTE"></a>NOTE</h5><p>Starting with the 3.12 release of the driver, you can also change the encoding of <code>UUID</code> instances via the <code>uuidRepresentation</code> property of <code>MongoClientSettings</code>. See <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClientSettings.html#getUuidRepresentation()"><code>MongoClientSettings.getUuidRepresentation</code></a> for details.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/index/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/31/index/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-01-31 22:58:12 / Modified: 22:57:43" itemprop="dateCreated datePublished" datetime="2021-01-31T22:58:12+08:00">2021-01-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li>Create Indexes</li>
+</ul>
+<h2 id="Create-Indexes"><a href="#Create-Indexes" class="headerlink" title="Create Indexes"></a>Create Indexes</h2><p><a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/indexes">Indexes</a> support the efficient execution of queries in MongoDB. To create an <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/indexes">index</a> on a field or fields, pass an index specification document to the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#createIndex(org.bson.conversions.Bson)"><code>MongoCollection.createIndex()</code></a> method.</p>
+<p>The MongoDB Java Driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes</code></a> class that includes static factory methods to create index specification documents for the various MongoDB Index key types.</p>
+<h5 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h5><p>MongoDB only creates an index if an index of the same specification does not already exist.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ul>
+<li><p>Include the following import statements:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClients;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> org.bson.Document;</span><br><span class="line">  </span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Indexes;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.IndexOptions;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Filters;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Connect-to-a-MongoDB-Deployment"><a href="#Connect-to-a-MongoDB-Deployment" class="headerlink" title="Connect to a MongoDB Deployment"></a>Connect to a MongoDB Deployment</h2><p>Connect to a MongoDB deployment and declare and define a <code>MongoDatabase</code> and a <code>MongoCollection</code> instances.</p>
+<p>For example, include the following code to connect to a standalone MongoDB deployment running on localhost on port <code>27017</code> and define <code>database</code> to refer to the <code>test</code> database and <code>collection</code> to refer to the <code>restaurants</code> collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create();</span><br><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>For additional information on connecting to MongoDB, see <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver-async/tutorials/connect-to-mongodb/">Connect to MongoDB</a>.</p>
+<h2 id="Ascending-Index"><a href="#Ascending-Index" class="headerlink" title="Ascending Index"></a>Ascending Index</h2><p>To create a specification for an ascending index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes.ascending</code></a> static helper methods.</p>
+<h3 id="Single-Ascending-Index"><a href="#Single-Ascending-Index" class="headerlink" title="Single Ascending Index"></a>Single Ascending Index</h3><p>The following example creates an ascending index on the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.ascending(<span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Compound-Ascending-Index"><a href="#Compound-Ascending-Index" class="headerlink" title="Compound Ascending Index"></a>Compound Ascending Index</h3><p>The following example creates an ascending <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-compound">compound index</a> on the <code>stars</code> field and the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.ascending(<span class="string">&quot;stars&quot;</span>, <span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>For an alternative way to create a compound index, see <a href="#compound-indexes">Compound Indexes</a>.</p>
+<h2 id="Descending-Index"><a href="#Descending-Index" class="headerlink" title="Descending Index"></a>Descending Index</h2><p>To create a specification of a descending index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes.descending</code></a> static helper methods.</p>
+<h3 id="Single-Descending-Key-Index"><a href="#Single-Descending-Key-Index" class="headerlink" title="Single Descending Key Index"></a>Single Descending Key Index</h3><p>The following example creates a descending index on the <code>stars</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.descending(<span class="string">&quot;stars&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Compound-Descending-Key-Index"><a href="#Compound-Descending-Key-Index" class="headerlink" title="Compound Descending Key Index"></a>Compound Descending Key Index</h3><p>The following example creates a descending <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-compound">compound index</a> on the <code>stars</code> field and the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.descending(<span class="string">&quot;stars&quot;</span>, <span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>For an alternative way to create a compound index, see <a href="#compound-indexes">Compound Indexes</a>.</p>
+<h2 id="Compound-Indexes"><a href="#Compound-Indexes" class="headerlink" title="Compound Indexes"></a>Compound Indexes</h2><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-compound">compound index</a>, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html"><code>Indexes.compoundIndex</code></a> static helper methods.</p>
+<h5 id="NOTE-1"><a href="#NOTE-1" class="headerlink" title="NOTE"></a>NOTE</h5><p>To create a specification for a compound index where all the keys are ascending, you can use the <a href="#compound-ascending-key-index"><code>ascending()</code></a> method. To create a specification for a compound index where all the keys are descending, you can use the <a href="##compound-descending-key-index"><code>descending()</code></a> method.</p>
+<p>The following example creates a compound index with the <code>stars</code> field in descending order and the <code>name</code> field in ascending order:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.compoundIndex(Indexes.descending(<span class="string">&quot;stars&quot;</span>), Indexes.ascending(<span class="string">&quot;name&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Text-Indexes"><a href="#Text-Indexes" class="headerlink" title="Text Indexes"></a>Text Indexes</h2><p>MongoDB provides <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-text">text indexes</a> to support text search of string content. Text indexes can include any field whose value is a string or an array of string elements. To create a specification for a text index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#text(java.lang.String)"><code>Indexes.text</code></a> static helper method.</p>
+<p>The following example creates a text index on the <code>name</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.text(<span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hashed-Index"><a href="#Hashed-Index" class="headerlink" title="Hashed Index"></a>Hashed Index</h2><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-hashed">hashed index</a> index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#hashed(java.lang.String)"><code>Indexes.hashed</code></a> static helper method.</p>
+<p>The following example creates a hashed index on the <code>_id</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.hashed(<span class="string">&quot;_id&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Geospatial-Indexes"><a href="#Geospatial-Indexes" class="headerlink" title="Geospatial Indexes"></a>Geospatial Indexes</h2><p>To support geospatial queries, MongoDB supports various <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/applications/geospatial-indexes">geospatial indexes</a>.</p>
+<h3 id="2dsphere"><a href="#2dsphere" class="headerlink" title="2dsphere"></a><code>2dsphere</code></h3><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/2dsphere"><code>2dsphere</code> index</a>, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#geo2dsphere(java.lang.String...)"><code>Indexes.geo2dsphere</code></a> static helper methods.</p>
+<p>The following example creates a <code>2dsphere</code> index on the <code>&quot;contact.location&quot;</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.geo2dsphere(<span class="string">&quot;contact.location&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="2d"><a href="#2d" class="headerlink" title="2d"></a><code>2d</code></h3><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/2d/"><code>2d</code> index</a> index, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#geo2d(java.lang.String)"><code>Indexes.geo2d</code></a> static helper method.</p>
+<h5 id="IMPORTANT"><a href="#IMPORTANT" class="headerlink" title="IMPORTANT"></a>IMPORTANT</h5><p>A 2d index is for data stored as points on a two-dimensional plane and is intended for legacy coordinate pairs used in MongoDB 2.2 and earlier.</p>
+<p>The following example creates a <code>2d</code> index on the <code>&quot;contact.location&quot;</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.createIndex(Indexes.geo2d(<span class="string">&quot;contact.location&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="geoHaystack"><a href="#geoHaystack" class="headerlink" title="geoHaystack"></a>geoHaystack</h3><p>To create a specification for a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/geohaystack/"><code>geoHaystack</code> index</a>, use the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Indexes.html#geoHaystack(java.lang.String,org.bson.conversions.Bson)"><code>Indexes.geoHaystack</code></a> method. <code>geoHaystack</code> indexes can improve performance on queries that use flat geometries.</p>
+<p>The following example creates a <code>geoHaystack</code> index on the <code>contact.location</code> field and an ascending index on the <code>stars</code> field:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IndexOptions haystackOption = <span class="keyword">new</span> IndexOptions().bucketSize(<span class="number">1.0</span>);</span><br><span class="line">collection.createIndex(</span><br><span class="line">         Indexes.geoHaystack(<span class="string">&quot;contact.location&quot;</span>, Indexes.ascending(<span class="string">&quot;stars&quot;</span>)),</span><br><span class="line">         haystackOption);</span><br></pre></td></tr></table></figure>
+
+<p>To query a haystack index, use the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/command/geoSearch"><code>geoSearch</code></a> command.</p>
+<h2 id="IndexOptions"><a href="#IndexOptions" class="headerlink" title="IndexOptions"></a>IndexOptions</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.client.model.IndexOptions;</span><br></pre></td></tr></table></figure>
+
+<p>In addition to the index specification document, the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#createIndex(org.bson.conversions.Bson)"><code>createIndex()</code></a> method can take an index options document, such as to create unique indexes or partial indexes.</p>
+<p>The Java Driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/IndexOptions.html">IndexOptions</a> class to specify various index options.</p>
+<h3 id="Unique-Index"><a href="#Unique-Index" class="headerlink" title="Unique Index"></a>Unique Index</h3><p>The following specifies a <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/IndexOptions.html#unique(boolean)"><code>unique(true)</code></a> option to create a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-unique">unique index</a> on the <code>name</code> and <code>stars</code> fields:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IndexOptions indexOptions = <span class="keyword">new</span> IndexOptions().unique(<span class="keyword">true</span>);</span><br><span class="line">collection.createIndex(Indexes.ascending(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;stars&quot;</span>), indexOptions);</span><br></pre></td></tr></table></figure>
+
+<p>For more information on unique indexes, see <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-unique">Unique Indexes</a>.</p>
+<h3 id="Partial-Index"><a href="#Partial-Index" class="headerlink" title="Partial Index"></a>Partial Index</h3><p>To create a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-partial/">partial index</a>, include a <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/IndexOptions.html#partialFilterExpression(org.bson.conversions.Bson)">partialFilterExpression</a> as an index option.</p>
+<p>The following example creates a partial index on documents that have <code>status</code> field equal to <code>&quot;A&quot;</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IndexOptions partialFilterIndexOptions = <span class="keyword">new</span> IndexOptions()</span><br><span class="line">                .partialFilterExpression(Filters.exists(<span class="string">&quot;contact.email&quot;</span>));</span><br><span class="line">collection.createIndex(</span><br><span class="line">                Indexes.descending(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;stars&quot;</span>), partialFilterIndexOptions);</span><br></pre></td></tr></table></figure>
+
+<p>For more information on partial indexes, see <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-partial/">Partial Indexes</a>.</p>
+<h2 id="Get-a-List-of-Indexes-on-a-Collection"><a href="#Get-a-List-of-Indexes-on-a-Collection" class="headerlink" title="Get a List of Indexes on a Collection"></a>Get a List of Indexes on a Collection</h2><p>Use the <code>listIndexes()</code> method to get a list of indexes. The following lists the indexes on the collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Document index : collection.listIndexes()) &#123;</span><br><span class="line">    System.out.println(index.toJson());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>For other index options, see <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/index-properties">MongoDB Manual</a> .</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -753,285 +1293,9 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/24/1-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="松子">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotpot nice">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/24/1-1/" class="post-title-link" itemprop="url">1</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-11-24 22:37:54" itemprop="dateCreated datePublished" datetime="2020-11-24T22:37:54+08:00">2020-11-24</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-27 17:39:22" itemprop="dateModified" datetime="2020-11-27T17:39:22+08:00">2020-11-27</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Enlish-learning"><a href="#Enlish-learning" class="headerlink" title="Enlish-learning"></a>Enlish-learning</h1><p>I’m a good man.<br><img src="/images/pasted-0.png" alt="upload successful"></p>
-<p><img src="/2020/11/24/1-1/pasted-0.png" alt="pasted-0"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/24/markdown%E7%94%A8%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="松子">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotpot nice">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/24/markdown%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">markdown语法学习</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-11-24 19:50:28" itemprop="dateCreated datePublished" datetime="2020-11-24T19:50:28+08:00">2020-11-24</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-11-27 17:41:02" itemprop="dateModified" datetime="2020-11-27T17:41:02+08:00">2020-11-27</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h1><p>#后+空格+文字</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line"></span><br><span class="line">## 二级标题</span><br></pre></td></tr></table></figure>
-
-<h1 id="二、字体"><a href="#二、字体" class="headerlink" title="二、字体"></a>二、字体</h1><ul>
-<li><p><strong>加粗</strong>：要加粗的文字左右分别用两个* 号包起来</p>
-</li>
-<li><p><em>斜体</em>：要倾斜的文字左右分别用一个* 号包起来</p>
-</li>
-<li><p><strong><em>斜体加粗</em></strong>：要倾斜和加粗的文字左右分别用三个* 号包起来</p>
-</li>
-<li><p><del>删除线</del>：要加删除线的文字左右分别用两个~号包起来</p>
-</li>
-</ul>
-<h1 id="三、引用"><a href="#三、引用" class="headerlink" title="三、引用"></a>三、引用</h1><p>在引用的文字前加&gt;即可。引用也可以嵌套，如加两个&gt;&gt;三个&gt;&gt;&gt;</p>
-<blockquote>
-<p>引用</p>
-</blockquote>
-<h1 id="四、分割线"><a href="#四、分割线" class="headerlink" title="四、分割线"></a>四、分割线</h1><p>三个或者三个以上的-或者*都可以</p>
-<hr>
-<h1 id="五、图片"><a href="#五、图片" class="headerlink" title="五、图片"></a>五、图片</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br><span class="line">图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/11/24/markdown%E7%94%A8%E6%B3%95/round.jpg" alt="round"></p>
-<h1 id="六、超链接"><a href="#六、超链接" class="headerlink" title="六、超链接"></a>六、超链接</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br><span class="line">title可加可不加</span><br></pre></td></tr></table></figure>
-
-<p>示例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[百度](http:&#x2F;&#x2F;baidu.com)</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="http://baidu.com/">百度</a></p>
-<h1 id="七、列表"><a href="#七、列表" class="headerlink" title="七、列表"></a>七、列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>无序列表用 - + * 任何一种都可以</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br><span class="line"></span><br><span class="line">注意：- + * 跟内容之间都要有一个空格</span><br></pre></td></tr></table></figure>
-
-<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p>数字加点</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line">3. 列表内容</span><br><span class="line"></span><br><span class="line">注意：序号跟内容之间要有空格</span><br></pre></td></tr></table></figure>
-
-<h1 id="八、表格"><a href="#八、表格" class="headerlink" title="八、表格"></a>八、表格</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line">- 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。此处省略</span><br></pre></td></tr></table></figure>
-
-<p>也可直接选择插入表格</p>
-<h1 id="九、代码"><a href="#九、代码" class="headerlink" title="九、代码"></a>九、代码</h1><h2 id="单行代码"><a href="#单行代码" class="headerlink" title="单行代码"></a>单行代码</h2><p>代码之间分别用一个反引号包起来</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#96;代码内容&#96;</span><br></pre></td></tr></table></figure>
-
-<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>代码之间分别用三个反引号包起来，且两边的反引号单独占一行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(&#96;&#96;&#96;)</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">  代码...</span><br><span class="line">(&#96;&#96;&#96;)</span><br></pre></td></tr></table></figure>
-
-<h1 id="十、流程图"><a href="#十、流程图" class="headerlink" title="十、流程图"></a>十、流程图</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">​&lt;div id&#x3D;&quot;flowchart-0&quot; class&#x3D;&quot;flow-chart&quot;&gt;&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
-
-<div id="flowchart-1" class="flow-chart"></div>
-```<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始
-op=>operation: My Operation
-cond=>condition: Yes or No?
-e=>end
-st->op->cond
-cond(yes)->e
-cond(no)->op
-&</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script><textarea id="flowchart-1-code" style="display: none">​```flow
-st=>start: 开始
-op=>operation: My Operation
-cond=>condition: Yes or No?
-e=>end
-st->op->cond
-cond(yes)->e
-cond(no)->op
-&</textarea><textarea id="flowchart-1-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-1-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-1-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-1", options);</script>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/19/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="松子">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotpot nice">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/19/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-11-19 23:14:46" itemprop="dateCreated datePublished" datetime="2020-11-19T23:14:46+08:00">2020-11-19</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 <script>

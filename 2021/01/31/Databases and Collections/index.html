@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.0.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}};
+  </script>
+<meta name="description" content="MongoDB Driver  Tutorials  Databases and Collections  Databases and CollectionsMongoDB stores documents in collections; the collections in databases. Prerequisites Include following import statements">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hotpot nice">
+<meta property="og:url" content="http://example.com/2021/01/31/Databases%20and%20Collections/index.html">
+<meta property="og:site_name" content="Hotpot nice">
+<meta property="og:description" content="MongoDB Driver  Tutorials  Databases and Collections  Databases and CollectionsMongoDB stores documents in collections; the collections in databases. Prerequisites Include following import statements">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-01-31T14:59:10.487Z">
+<meta property="article:modified_time" content="2021-01-31T14:59:55.500Z">
+<meta property="article:author" content="松子">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/01/31/Databases%20and%20Collections/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+<title> | Hotpot nice</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hotpot nice</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section">Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Databases-and-Collections"><span class="nav-number">1.</span> <span class="nav-text">Databases and Collections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prerequisites"><span class="nav-number">2.</span> <span class="nav-text">Prerequisites</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connect-to-a-MongoDB-Deployment"><span class="nav-number">3.</span> <span class="nav-text">Connect to a MongoDB Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Access-a-Database"><span class="nav-number">4.</span> <span class="nav-text">Access a Database</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NOTE"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">NOTE</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Access-a-Collection"><span class="nav-number">5.</span> <span class="nav-text">Access a Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NOTE-1"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">NOTE</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Explicitly-Create-a-Collection"><span class="nav-number">6.</span> <span class="nav-text">Explicitly Create a Collection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Capped-Collection"><span class="nav-number">6.1.</span> <span class="nav-text">Capped Collection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-Validation"><span class="nav-number">6.2.</span> <span class="nav-text">Document Validation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-A-List-of-Collections"><span class="nav-number">7.</span> <span class="nav-text">Get A List of Collections</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Drop-a-Collection"><span class="nav-number">8.</span> <span class="nav-text">Drop a Collection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Immutability"><span class="nav-number">9.</span> <span class="nav-text">Immutability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CodecRegistry"><span class="nav-number">10.</span> <span class="nav-text">CodecRegistry</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NOTE-2"><span class="nav-number">10.0.0.1.</span> <span class="nav-text">NOTE</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">松子</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/31/Databases%20and%20Collections/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-01-31 22:59:10 / Modified: 22:59:55" itemprop="dateCreated datePublished" datetime="2021-01-31T22:59:10+08:00">2021-01-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li>Databases and Collections</li>
+</ul>
+<h2 id="Databases-and-Collections"><a href="#Databases-and-Collections" class="headerlink" title="Databases and Collections"></a>Databases and Collections</h2><p>MongoDB stores documents in collections; the collections in databases.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ul>
+<li><p>Include following import statements:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClients;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.mongodb.client.model.Filters.*;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.CreateCollectionOptions;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.ValidationOptions;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Connect-to-a-MongoDB-Deployment"><a href="#Connect-to-a-MongoDB-Deployment" class="headerlink" title="Connect to a MongoDB Deployment"></a>Connect to a MongoDB Deployment</h2><p>Connect to a running MongoDB deployment.</p>
+<p>For example, include the following code to connect to a standalone MongoDB deployment running on localhost on port <code>27017</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create();</span><br></pre></td></tr></table></figure>
+
+<p>For more information on connecting to running MongoDB deployments, see <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/connect-to-mongodb/">Connect to MongoDB</a>.</p>
+<h2 id="Access-a-Database"><a href="#Access-a-Database" class="headerlink" title="Access a Database"></a>Access a Database</h2><p>Once you have a <code>MongoClient</code> instance connected to a MongoDB deployment, use its <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClient.html#getDatabase(java.lang.String)"><code>getDatabase()</code></a> method to access a database.</p>
+<p>Specify the name of the database to the <code>getDatabase()</code> method. If a database does not exist, MongoDB creates the database when you first store data for that database.</p>
+<p>The following example accesses the <code>test</code> database:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h5><p><code>MongoDatabase</code> instances are immutable.</p>
+<h2 id="Access-a-Collection"><a href="#Access-a-Collection" class="headerlink" title="Access a Collection"></a>Access a Collection</h2><p>Once you have a <code>MongoDatabase</code> instance, use its <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String)"><code>getCollection()</code></a> method to access a collection.</p>
+<p>Specify the name of the collection to the <code>getCollection()</code> method.</p>
+<p>For example, using the <code>database</code> instance, the following statement accesses the collection named <code>myTestCollection</code>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; coll = database.getCollection(<span class="string">&quot;myTestCollection&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE-1"><a href="#NOTE-1" class="headerlink" title="NOTE"></a>NOTE</h5><p><code>MongoCollection</code> instances are immutable.</p>
+<p>If a collection does not exist, MongoDB creates the collection when you first store data for that collection.</p>
+<p>You can also explicitly create a collection with various options, such as setting the maximum size or the documentation validation rules.</p>
+<h2 id="Explicitly-Create-a-Collection"><a href="#Explicitly-Create-a-Collection" class="headerlink" title="Explicitly Create a Collection"></a>Explicitly Create a Collection</h2><p>The MongoDB driver provides the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#createCollection(java.lang.String,com.mongodb.client.model.CreateCollectionOptions)"><code>createCollection()</code></a> method to explicitly create a collection. When you explicitly create a collection, you can specify various collection options, such as a maximum size or the documentation validation rules, with the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/CreateCollectionOptions.html"><code>CreateCollectionOptions</code></a> class. If you are not specifying these options, you do not need to explicitly create the collection since MongoDB creates new collections when you first store data for the collections.</p>
+<h3 id="Capped-Collection"><a href="#Capped-Collection" class="headerlink" title="Capped Collection"></a>Capped Collection</h3><p>For example, the following operation creates a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/capped-collections">capped collection</a> sized to 1 megabyte:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">database.createCollection(<span class="string">&quot;cappedCollection&quot;</span>,</span><br><span class="line">          <span class="keyword">new</span> CreateCollectionOptions().capped(<span class="keyword">true</span>).sizeInBytes(<span class="number">0x100000</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Document-Validation"><a href="#Document-Validation" class="headerlink" title="Document Validation"></a>Document Validation</h3><p>MongoDB provides the capability to <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/core/document-validation">validate documents</a> during updates and insertions. Validation rules are specified on a per-collection basis using the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/ValidationOptions.html"><code>ValidationOptions</code></a>, which takes a filter document that specifies the validation rules or expressions.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ValidationOptions collOptions = <span class="keyword">new</span> ValidationOptions().validator(</span><br><span class="line">        Filters.or(Filters.exists(<span class="string">&quot;email&quot;</span>), Filters.exists(<span class="string">&quot;phone&quot;</span>)));</span><br><span class="line">database.createCollection(<span class="string">&quot;contacts&quot;</span>,</span><br><span class="line">        <span class="keyword">new</span> CreateCollectionOptions().validationOptions(collOptions));</span><br></pre></td></tr></table></figure>
+
+<h2 id="Get-A-List-of-Collections"><a href="#Get-A-List-of-Collections" class="headerlink" title="Get A List of Collections"></a>Get A List of Collections</h2><p>You can get a list of the collections in a database using the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#listCollectionNames()"><code>MongoDatabase.listCollectionNames()</code></a> method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (String name : database.listCollectionNames()) &#123;</span><br><span class="line">    System.out.println(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Drop-a-Collection"><a href="#Drop-a-Collection" class="headerlink" title="Drop a Collection"></a>Drop a Collection</h2><p>You can drop a collection by using the <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#drop()"><code>MongoCollection.drop()</code></a> method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;contacts&quot;</span>);</span><br><span class="line">collection.drop();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Immutability"><a href="#Immutability" class="headerlink" title="Immutability"></a>Immutability</h2><p><code>MongoDatabase</code> and <code>MongoCollection</code> instances are immutable. To create new instances from existing instances that have different property values, such as <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-concern">read concern</a>, <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-preference">read preference</a>, and <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/write-concern">write concern</a>, the <code>MongoDatabase</code> and <code>MongoCollection</code> class provides various methods:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)"><code>MongoDatabase.withReadConcern</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withReadPreference(com.mongodb.ReadPreference)"><code>MongoDatabase.withReadPreference</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withWriteConcern(com.mongodb.WriteConcern)"><code>MongoDatabase.withWriteConcern</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withReadConcern(com.mongodb.ReadConcern)"><code>MongoCollection.withReadConcern</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)"><code>MongoCollection.withReadPreference</code></a></li>
+<li><a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withWriteConcern(com.mongodb.WriteConcern)"><code>MongoCollection.withWriteConcern</code></a></li>
+</ul>
+<p>For details, see <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-read-operations/">Read Operations</a> and <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/perform-write-operations/">Write Operations</a>.</p>
+<h2 id="CodecRegistry"><a href="#CodecRegistry" class="headerlink" title="CodecRegistry"></a>CodecRegistry</h2><p>An overload of the <code>getCollection</code> method allows clients to specify a different class for representing BSON documents. For example, users of the legacy CRUD API from the 2.x driver series may wish to continue using <code>BasicDBObject</code> in order to ease the transition to the new CRUD API:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Pass BasicDBObject.class as the second argument</span></span><br><span class="line">MongoCollection&lt;BasicDBObject&gt; collection = database.getCollection(<span class="string">&quot;mycoll&quot;</span>, BasicDBObject.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">// insert a document</span></span><br><span class="line">BasicDBObject document = <span class="keyword">new</span> BasicDBObject(<span class="string">&quot;x&quot;</span>, <span class="number">1</span>)</span><br><span class="line">collection.insertOne(document);</span><br><span class="line">document.append(<span class="string">&quot;x&quot;</span>, <span class="number">2</span>).append(<span class="string">&quot;y&quot;</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// replace a document</span></span><br><span class="line">collection.replaceOne(Filters.eq(<span class="string">&quot;_id&quot;</span>, document.get(<span class="string">&quot;_id&quot;</span>)), document);</span><br><span class="line"></span><br><span class="line"><span class="comment">// find documents</span></span><br><span class="line">List&lt;BasicDBObject&gt; foundDocument = collection.find().into(<span class="keyword">new</span> ArrayList&lt;BasicDBObject&gt;());</span><br></pre></td></tr></table></figure>
+
+<p>There are two requirements that must be met for any class used in this way:</p>
+<ul>
+<li>a <code>Codec</code> for it must be registered in the <code>MongoCollection</code>’s <code>CodecRegistry</code></li>
+<li>the <code>Codec</code> must be one that encodes and decodes a full BSON document (and not just, for example, a single BSON value like an Int32)</li>
+</ul>
+<p>By default, a <code>MongoCollection</code> is configured with <code>Codec</code>s for three classes:</p>
+<ul>
+<li><code>Document</code></li>
+<li><code>BasicDBObject</code></li>
+<li><code>BsonDocument</code></li>
+</ul>
+<p>Applications, however, are free to register <code>Codec</code> implementations for other classes by customizing the <code>CodecRegistry</code>. New <code>CodecRegistry</code> instances are configurable at three levels:</p>
+<ul>
+<li>In a <code>MongoClient</code> via <code>MongoClientOptions</code></li>
+<li>In a <code>MongoDatabase</code> via its <code>withCodecRegistry</code> method</li>
+<li>In a <code>MongoCollection</code> via its <code>withCodecRegistry</code> method</li>
+</ul>
+<p>Consider the case of encoding and decoding instances of the <code>UUID</code> class. The Java driver by default encodes instances of <code>UUID</code> using a byte ordering that is not compatible with other MongoDB drivers, and changing the default would be quite dangerous. But it is possible for new applications that require interoperability across multiple drivers to be able to change that default, and they can do that with a <code>CodecRegistry</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Replaces the default UuidCodec with one that uses the new standard UUID representation</span></span><br><span class="line">CodecRegistry codecRegistry =</span><br><span class="line">CodecRegistries.fromRegistries(CodecRegistries.fromCodecs(<span class="keyword">new</span> UuidCodec(UuidRepresentation.STANDARD)),</span><br><span class="line">                               MongoClientSettings.getDefaultCodecRegistry());</span><br><span class="line"></span><br><span class="line"><span class="comment">// globally</span></span><br><span class="line">MongoClientSettings settings = MongoClientSettings.builder()</span><br><span class="line">        .codecRegistry(codecRegistry).build();</span><br><span class="line">MongoClient client = MongoClients.create(settings);</span><br><span class="line"></span><br><span class="line"><span class="comment">// or per database</span></span><br><span class="line">MongoDatabase database = client.getDatabase(<span class="string">&quot;mydb&quot;</span>)</span><br><span class="line">                               .withCodecRegistry(codecRegistry);</span><br><span class="line"></span><br><span class="line"><span class="comment">// or per collection</span></span><br><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;mycoll&quot;</span>)</span><br><span class="line">                                               .withCodecRegistry(codecRegistry);</span><br></pre></td></tr></table></figure>
+
+<h5 id="NOTE-2"><a href="#NOTE-2" class="headerlink" title="NOTE"></a>NOTE</h5><p>Starting with the 3.12 release of the driver, you can also change the encoding of <code>UUID</code> instances via the <code>uuidRepresentation</code> property of <code>MongoClientSettings</code>. See <a target="_blank" rel="noopener" href="http://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClientSettings.html#getUuidRepresentation()"><code>MongoClientSettings.getUuidRepresentation</code></a> for details.</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/31/index/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/31/Write%20Operations/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">松子</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+</body>
+</html>

@@ -172,7 +172,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -202,6 +202,128 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-12-01 17:27:21" itemprop="dateCreated datePublished" datetime="2020-12-01T17:27:21+08:00">2020-12-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-12-07 18:45:16" itemprop="dateModified" datetime="2020-12-07T18:45:16+08:00">2020-12-07</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <hr>
+<h2 id="title-测试面试总结"><a href="#title-测试面试总结" class="headerlink" title="title:测试面试总结"></a>title:测试面试总结</h2><h1 id="网络攻防"><a href="#网络攻防" class="headerlink" title="网络攻防"></a>网络攻防</h1><p><strong>（1）</strong> ARP欺骗的攻击原理</p>
+<p>ARP欺骗的是根据ARP协议本身存在的漏洞实现的。攻击者利用伪造的IP／MAC映射关系来骗取其他主机的信任。ARP协议是建立在局域网主机相互信任的基础之上的。ARP具有广播性、无状态性、无认证性、无关性和动态性等一系列的安全缺陷。</p>
+<p><strong>（2）</strong> ARP欺骗的攻击方案：</p>
+<p>①．常见ARP攻击方式</p>
+<ul>
+<li><p>简单的欺骗攻击。同一网段内，目的主机发送ARP广播请求后，攻击主机直接将伪造的应答ARP包发送给路由和目的主机，用虚假的MAC地址欺骗目的主机，从而使主机网络中断。</p>
+</li>
+<li><p>交换环境的嗅探。将自己的主机伪造成一个中间转发站来监听其他主机间的相互通信。嗅探主机获得相应权限可以发送ICMP重定向消息，将自身主机设置为缺省路由器，使其他主机数据包要通过嗅探主机来进行路由转发。为了维持原有正常的网络通信路由状况，需要进行IP转发。</p>
+</li>
+<li><p>交换机MAC地址表溢出。交换机MAC地址表空间有限，运用虚假伪造的包将交换机的MAC地址表充满，交换机无法找到目的主机对应接口，只能在广播域中将数据包泛洪。这种方法可能造成网络堵塞甚至崩溃。</p>
+</li>
+</ul>
+<p>能查找到目标主机的ip</p>
+<p>能使用kali虚拟机的arpspoof命令实现ARP欺骗攻击</p>
+<p>arp地址解析协议是建立在网络中各个主机互相信任的基础</p>
+<p>集线器“Hub”，收到信号放大再生，广播</p>
+<p>成对组合测试 PICT</p>
+<p><img src="/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/image-20201203110016216.png" alt="image-20201203110016216"></p>
+<p>静态测试</p>
+<p>哈希值计算，输入：字符串，返回0到m之间大整数</p>
+<p>哈希冲突：多次哈希，（线性探测、平方探测、拉链法：装载因子可大于1）</p>
+<p>调整哈希表大小</p>
+<p>数据过多队列溢出，单向链式循环队列malloc。返回的指针指向该分配域的开头位置</p>
+<p>深拷贝：新建了内存地址，放内容。</p>
+<p>浅拷贝：指针指向内存。</p>
+<h1 id="大数据项目部署过程记录"><a href="#大数据项目部署过程记录" class="headerlink" title="大数据项目部署过程记录"></a>大数据项目部署过程记录</h1><p>​    （1）集群包含节点，一主一从，均位于虚拟机。</p>
+<p>​    （2）RedisServer位于Windows系统，需要的话可以移植到虚拟机上，通过Redis Desktop Manager远程访问。</p>
+<p>​    （3）MySQLServer位于集群主节点，在Windows系统上通过Navicat远程访问。</p>
+<p>​    （4）爬虫和Spark程序都需要手动拷贝到集群运行</p>
+<p>​    （5）爬虫启动后自动将保存到HDFS</p>
+<p>​    （5）Spark程序启动后自动从HDFS系统读取数据文件，将分析的数据结果保存到MySQL数据库。</p>
+<h1 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a>测试工具</h1><p>JUnit单元测试</p>
+<p>JUnit Test Case,建立一个测试类，通过注解</p>
+<p>使用<strong>注释命令</strong>控制测试执行</p>
+<p>@Test测试类timeout,expected.</p>
+<p>@After @Before</p>
+<p>@Parameters 参数化测试数据</p>
+<p>testsuite将多个test文件统一执行调度</p>
+<p>QTP，软件功能测试、回归测试</p>
+<p>利用对象识别技术。自动化功能测试软件，通过检查点技术来检查网页，对象，表格等是否符合预期。功能是否符合要求。</p>
+<p>(链接跳转、用户注册、用户登录、航班查询等功能测试）。</p>
+<p>Load Runner系统性能测试。</p>
+<p>组件：</p>
+<ul>
+<li>虚拟用户发生器(VuGen):创建虚拟用户测试脚本</li>
+<li>控制器(Controller):设计与运行测试场景。</li>
+<li>负载发生器(Load Generators):模拟用户对服务器提交请求。</li>
+<li>分析器(Analysis):主要对测试结果进行分析。</li>
+</ul>
+<p>​         </p>
+<p>我是来自电子科技大学大三的学生何龙，专业是软件工程网络安全方向。主要语言技能是比较熟悉C语言，也了解过一些关系型数据库postgresql的操作。软件工程基础学过软件测试的相关知识</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 

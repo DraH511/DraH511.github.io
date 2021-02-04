@@ -172,7 +172,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -202,6 +202,194 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/04/search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="松子">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hotpot nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/02/04/search/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-02-04 22:58:09 / Modified: 23:00:15" itemprop="dateCreated datePublished" datetime="2021-02-04T22:58:09+08:00">2021-02-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/driver/">MongoDB Driver</a> </li>
+<li><a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/">Tutorials</a> </li>
+<li>Read Operations</li>
+</ul>
+<h2 id="Find-Operations"><a href="#Find-Operations" class="headerlink" title="Find Operations"></a>Find Operations</h2><p>Find operations retrieve documents from a collection. You can specify a filter to select only those documents that match the filter condition.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><ul>
+<li><p>The example below requires a <code>restaurants</code> collection in the <code>test</code> database. To create and populate the collection, follow the directions in <a target="_blank" rel="noopener" href="https://github.com/mongodb/docs-assets/tree/drivers">github</a>.</p>
+</li>
+<li><p>Include the following import statements:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.*;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClients;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Projections;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Filters;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.mongodb.client.model.Filters.*;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> com.mongodb.client.model.Projections.*;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.model.Sorts;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> org.bson.Document;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Include the following code which the examples in the tutorials will use to print the results of the find operations:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Block&lt;Document&gt; printBlock = <span class="keyword">new</span> Block&lt;Document&gt;() &#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">apply</span><span class="params">(<span class="keyword">final</span> Document document)</span> </span>&#123;</span><br><span class="line">           System.out.println(document.toJson());</span><br><span class="line">       &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Connect-to-a-MongoDB-Deployment"><a href="#Connect-to-a-MongoDB-Deployment" class="headerlink" title="Connect to a MongoDB Deployment"></a>Connect to a MongoDB Deployment</h2><p>Connect to a MongoDB deployment and declare and define a <code>MongoDatabase</code> instance and a <code>MongoCollection</code> instance</p>
+<p>For example, include the following code to connect to a standalone MongoDB deployment running on localhost on port <code>27017</code> and define <code>database</code> to refer to the <code>test</code> database and <code>collection</code> to refer to the <code>restaurants</code> collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create();</span><br><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>For additional information on connecting to MongoDB, see <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/driver-async/tutorials/connect-to-mongodb/">Connect to MongoDB</a>.</p>
+<h2 id="Query-a-Collection"><a href="#Query-a-Collection" class="headerlink" title="Query a Collection"></a>Query a Collection</h2><p>To query the collection, you can use the collection’s <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#find()"><code>find()</code></a> method.</p>
+<p>You can call the method without any arguments to query all documents in a collection:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.find().forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<p>Or pass a filter to query for documents that match the filter criteria:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">collection.find(eq(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;456 Cookies Shop&quot;</span>))</span><br><span class="line">            .forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Query-Filters"><a href="#Query-Filters" class="headerlink" title="Query Filters"></a>Query Filters</h2><p>To query for documents that match certain conditions, pass a filter document to the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#find()"><code>find()</code></a> method.</p>
+<h3 id="Empty-Filter"><a href="#Empty-Filter" class="headerlink" title="Empty Filter"></a>Empty Filter</h3><p>To specify an empty filter (i.e. match all documents in a collection), use an empty <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/org/bson/Document.html"><code>Document</code></a> object.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.find(<span class="keyword">new</span> Document()).forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<h5 id="TIP"><a href="#TIP" class="headerlink" title="TIP"></a>TIP</h5><p>For the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#find()"><code>find()</code></a> method, you can also call the method without passing a filter object to match all documents in a collection.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection.find().forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Filters-Helper"><a href="#Filters-Helper" class="headerlink" title="Filters Helper"></a><code>Filters</code> Helper</h3><p>To facilitate the creation of filter documents, the Java driver provides the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Filters.html"><code>Filters</code></a> class that provides filter condition helper methods.</p>
+<p>Consider the following <code>find</code> operation which includes a filter <code>Document</code> which specifies that:</p>
+<ul>
+<li>the <code>stars</code> field is greater than or equal to 2 and less than 5, <em>AND</em></li>
+<li>the <code>categories</code> field equals <code>&quot;Bakery&quot;</code> (or if <code>categories</code> is an array, contains the string <code>&quot;Bakery&quot;</code> as an element):</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">collection.find(</span><br><span class="line">    <span class="keyword">new</span> Document(<span class="string">&quot;stars&quot;</span>, <span class="keyword">new</span> Document(<span class="string">&quot;$gte&quot;</span>, <span class="number">2</span>)</span><br><span class="line">          .append(<span class="string">&quot;$lt&quot;</span>, <span class="number">5</span>))</span><br><span class="line">          .append(<span class="string">&quot;categories&quot;</span>, <span class="string">&quot;Bakery&quot;</span>)).forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<p>The following example specifies the same filter condition using the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Filters.html"><code>Filters</code></a> helper methods:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">collection.find(and(gte(<span class="string">&quot;stars&quot;</span>, <span class="number">2</span>), lt(<span class="string">&quot;stars&quot;</span>, <span class="number">5</span>), eq(<span class="string">&quot;categories&quot;</span>, <span class="string">&quot;Bakery&quot;</span>)))</span><br><span class="line">            .forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<p>For a list of MongoDB query filter operators, refer to the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/operator/query">MongoDB Manual</a>. For the associated <code>Filters</code> helpers, see <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Filters.html"><code>Filters</code></a>. See also the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/tutorial/query-documents">Query Documents Tutorial</a> for an overview of querying in MongoDB, including specifying filter conditions on arrays and embedded documents.</p>
+<h2 id="FindIterable"><a href="#FindIterable" class="headerlink" title="FindIterable"></a>FindIterable</h2><p>The <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#find()"><code>find()</code></a> method returns an instance of the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/FindIterable.html"><code>FindIterable</code></a> interface. The interface provides various methods that you can chain to the <code>find()</code> method to modify the output or behavior of the query, such as <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/FindIterable.html#sort(org.bson.conversions.Bson)"><code>sort()</code></a> or <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/FindIterable.html#projection(org.bson.conversions.Bson)"><code>projection()</code></a>, as well as for iterating the results, such as <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html#iterator()"><code>iterator()</code></a> and <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html#forEach(com.mongodb.Block)"><code>forEach()</code></a>.</p>
+<h3 id="Projections"><a href="#Projections" class="headerlink" title="Projections"></a>Projections</h3><p>By default, queries in MongoDB return all fields in matching documents. To specify the fields to return in the matching documents, you can specify a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/tutorial/project-fields-from-query-results/#projection-document">projection document</a>.</p>
+<p>Consider the following <code>find</code> operation which includes a projection <code>Document</code> which specifies that the matching documents return only the <code>name</code> field, <code>stars</code> field, and the <code>categories</code> field.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">collection.find(and(gte(<span class="string">&quot;stars&quot;</span>, <span class="number">2</span>), lt(<span class="string">&quot;stars&quot;</span>, <span class="number">5</span>), eq(<span class="string">&quot;categories&quot;</span>, <span class="string">&quot;Bakery&quot;</span>)))</span><br><span class="line">                .projection(<span class="keyword">new</span> Document(<span class="string">&quot;name&quot;</span>, <span class="number">1</span>)</span><br><span class="line">                     .append(<span class="string">&quot;stars&quot;</span>, <span class="number">1</span>)</span><br><span class="line">                     .append(<span class="string">&quot;categories&quot;</span>,<span class="number">1</span>)</span><br><span class="line">                     .append(<span class="string">&quot;_id&quot;</span>, <span class="number">0</span>))</span><br><span class="line">                .forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<p>To facilitate the creation of projection documents, the Java driver provides the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Projections.html"><code>Projections</code></a> class.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">collection.find(and(gte(<span class="string">&quot;stars&quot;</span>, <span class="number">2</span>), lt(<span class="string">&quot;stars&quot;</span>, <span class="number">5</span>), eq(<span class="string">&quot;categories&quot;</span>, <span class="string">&quot;Bakery&quot;</span>)))</span><br><span class="line">                .projection(fields(include(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;stars&quot;</span>, <span class="string">&quot;categories&quot;</span>), excludeId()))</span><br><span class="line">                .forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<p>In the projection document, you can also specify a projection expression using a <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/reference/operator/projection/.html">projection operator</a></p>
+<p>For an example on using the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/model/Projections.html#metaTextScore(java.lang.String)"><code>Projections.metaTextScore</code></a>, see the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/driver/tutorials/text-search/">Text Search tutorial</a>.</p>
+<h3 id="Sorts"><a href="#Sorts" class="headerlink" title="Sorts"></a>Sorts</h3><p>To sort documents, pass a <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/method/cursor.sort/#cursor.sort">sort specification document</a> to the <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/FindIterable.html#sort(org.bson.conversions.Bson)"><code>FindIterable.sort()</code></a> method. The Java driver provides <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/builders/sorts/"><code>Sorts</code></a> helpers to facilitate the sort specification document.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">collection.find(and(gte(<span class="string">&quot;stars&quot;</span>, <span class="number">2</span>), lt(<span class="string">&quot;stars&quot;</span>, <span class="number">5</span>), eq(<span class="string">&quot;categories&quot;</span>, <span class="string">&quot;Bakery&quot;</span>)))</span><br><span class="line">                .sort(Sorts.ascending(<span class="string">&quot;name&quot;</span>))</span><br><span class="line">                .forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sort-with-Projections"><a href="#Sort-with-Projections" class="headerlink" title="Sort with Projections"></a>Sort with Projections</h3><p>The <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/FindIterable.html"><code>FindIterable</code></a> methods themselves return <code>FindIterable</code> objects, and as such, you can append multiple <code>FindIterable</code> methods to the <code>find()</code> method.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">collection.find(and(gte(<span class="string">&quot;stars&quot;</span>, <span class="number">2</span>), lt(<span class="string">&quot;stars&quot;</span>, <span class="number">5</span>), eq(<span class="string">&quot;categories&quot;</span>, <span class="string">&quot;Bakery&quot;</span>)))</span><br><span class="line">                .sort(Sorts.ascending(<span class="string">&quot;name&quot;</span>))</span><br><span class="line">                .projection(fields(include(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;stars&quot;</span>, <span class="string">&quot;categories&quot;</span>), excludeId()))</span><br><span class="line">                .forEach(printBlock);</span><br></pre></td></tr></table></figure>
+
+<h2 id="MongoIterable"><a href="#MongoIterable" class="headerlink" title="MongoIterable"></a>MongoIterable</h2><p>The <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html"><code>MongoIterable</code></a> interface provides helper methods to access the results of an operation:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html#iterator()"><code>iterator()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html#first()"><code>first()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html#forEach(com.mongodb.Block)"><code>forEach()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html#map(com.mongodb.Function)"><code>map()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoIterable.html#into(A)"><code>into()</code></a></li>
+</ul>
+<h2 id="Read-Preference"><a href="#Read-Preference" class="headerlink" title="Read Preference"></a>Read Preference</h2><p>For read operations on <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/replication/">replica sets</a> or <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/sharding/">sharded clusters</a>, applications can configure the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-preference">read preference</a> at three levels:</p>
+<ul>
+<li><p>In a <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoClient.html"><code>MongoClient()</code></a></p>
+<ul>
+<li>Via <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClientSettings.html"><code>MongoClientSettings</code></a>:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create(MongoClientSettings.builder()</span><br><span class="line">                                              .applyConnectionString(<span class="keyword">new</span> ConnectionString(<span class="string">&quot;mongodb://host1,host2&quot;</span>))</span><br><span class="line">                                              .readPreference(ReadPreference.secondary())</span><br><span class="line">                                              .build());</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Via <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc//com/mongodb/ConnectionString.html"><code>ConnectionString</code></a>, as in the following example:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = MongoClients.create(<span class="string">&quot;mongodb://host1:27017,host2:27017/?readPreference=secondary&quot;</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In a <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html"><code>MongoDatabase</code></a> via its <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withReadPreference(com.mongodb.ReadPreference)"><code>withReadPreference</code></a> method.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">                         .withReadPreference(ReadPreference.secondary());</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In a <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html"><code>MongoCollection</code></a> via its <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withReadPreference(com.mongodb.ReadPreference)"><code>withReadPreference</code></a> method:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>)</span><br><span class="line">            .withReadPreference(ReadPreference.secondary());</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>MongoDatabase</code> and <code>MongoCollection</code> instances are immutable. Calling <code>.withReadPreference()</code> on an existing <code>MongoDatabase</code> or <code>MongoCollection</code> instance returns a new instance and does not affect the instance on which the method is called.</p>
+<p>For example, in the following, the <code>collectionWithReadPref</code> instance has the read preference of primaryPreferred whereas the read preference of the <code>collection</code> is unaffected.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collectionWithReadPref = collection.withReadPreference(ReadPreference.primaryPreferred());</span><br></pre></td></tr></table></figure>
+
+<h2 id="Read-Concern"><a href="#Read-Concern" class="headerlink" title="Read Concern"></a>Read Concern</h2><p>For read operations on <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/replication/">replica sets</a> or <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/sharding/">sharded clusters</a>, applications can configure the <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/read-concern">read concern</a> at three levels:</p>
+<ul>
+<li><p>In a <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClient.html"><code>MongoClient()</code></a></p>
+<ul>
+<li>Via <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc//com/mongodb/MongoClientURI.html"><code>MongoClientURI</code></a>, as in the following example:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoClient mongoClient = <span class="keyword">new</span> MongoClient(</span><br><span class="line">  <span class="keyword">new</span> MongoClientURI(<span class="string">&quot;mongodb://host1:27017,host2:27017/?readConcernLevel=majority&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Via <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/MongoClientOptions.html"><code>MongoClientOptions</code></a>, as in the following example:</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MongoClientOptions options = MongoClientOptions.builder().readConcern(ReadConcern.DEFAULT).build();</span><br><span class="line">MongoClient mongoClient = <span class="keyword">new</span> MongoClient(Arrays.asList(</span><br><span class="line">                              <span class="keyword">new</span> ServerAddress(<span class="string">&quot;host1&quot;</span>, <span class="number">27017</span>),</span><br><span class="line">                              <span class="keyword">new</span> ServerAddress(<span class="string">&quot;host1&quot;</span>, <span class="number">27017</span>)), options);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In a <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html"><code>MongoDatabase</code></a> via its <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoDatabase.html#withReadConcern(com.mongodb.ReadConcern)"><code>withReadConcern</code></a> method, as in the following example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoDatabase database = mongoClient.getDatabase(<span class="string">&quot;test&quot;</span>)</span><br><span class="line">                                    .withReadConcern(ReadConcern.DEFAULT);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>In a <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html"><code>MongoCollection</code></a> via its <a target="_blank" rel="noopener" href="https://mongodb.github.io/mongo-java-driver/3.12/javadoc/com/mongodb/client/MongoCollection.html#withReadConcern(com.mongodb.ReadConcern)"><code>withReadConcern</code></a> method, as in the following example:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>)</span><br><span class="line">                                          .withReadConcern(ReadConcern.DEFAULT);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>MongoDatabase</code> and <code>MongoCollection</code> instances are immutable. Calling <code>.withReadConcern()</code> on an existing <code>MongoDatabase</code> or <code>MongoCollection</code> instance returns a new instance and does not affect the instance on which the method is called.</p>
+<p>For example, in the following, the <code>collWithReadConcern</code> instance has majority read concern whereas the read concern of the <code>collection</code> is unaffected.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MongoCollection&lt;Document&gt; collWithReadConcern = collection</span><br><span class="line">                                                  .withReadConcern(ReadConcern.MAJORITY);</span><br></pre></td></tr></table></figure>
+
+<p>You can build <code>MongoClientOptions</code>, <code>MongoDatabase</code>, or <code>MongoCollection</code> to include a combination of read concern, read preference, and <a target="_blank" rel="noopener" href="http://docs.mongodb.org/manual/reference/write-concern">write concern</a>.</p>
+<p>For example, the following sets all three at the collection level:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">collection = database.getCollection(<span class="string">&quot;restaurants&quot;</span>)</span><br><span class="line">                .withReadPreference(ReadPreference.primary())</span><br><span class="line">                .withReadConcern(ReadConcern.MAJORITY)</span><br><span class="line">                .withWriteConcern(WriteConcern.MAJORITY);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -782,7 +970,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-01-26 23:07:00" itemprop="dateModified" datetime="2021-01-26T23:07:00+08:00">2021-01-26</time>
+        <time title="Modified: 2021-02-04 22:50:00" itemprop="dateModified" datetime="2021-02-04T22:50:00+08:00">2021-02-04</time>
       </span>
 
   
@@ -802,6 +990,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.mongodb.MongoClient;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.FindIterable;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCollection;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoCursor;</span><br><span class="line"><span class="keyword">import</span> com.mongodb.client.MongoDatabase;</span><br><span class="line"><span class="keyword">import</span> org.bson.Document;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MogoDBJDBC</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 连接到 mongodb 服务</span></span><br><span class="line">            MongoClient mongoClient = <span class="keyword">new</span> MongoClient(<span class="string">&quot;192.168.32.140&quot;</span>, <span class="number">27017</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 连接到数据库</span></span><br><span class="line">            MongoDatabase mongoDatabase = mongoClient.getDatabase(<span class="string">&quot;ad&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;Connect to database successfully&quot;</span>);</span><br><span class="line">            mongoDatabase.createCollection(<span class="string">&quot;student1&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;集合创建成功&quot;</span>);</span><br><span class="line">            MongoCollection&lt;Document&gt; collection = mongoDatabase.getCollection(<span class="string">&quot;student1&quot;</span>);</span><br><span class="line">            System.out.println(<span class="string">&quot;集合 student 选择成功&quot;</span>);</span><br><span class="line">            <span class="comment">//插入文档</span></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 1. 创建文档 org.bson.Document 参数为key-value的格式</span></span><br><span class="line"><span class="comment">             * 2. 创建文档集合List&lt;Document&gt;</span></span><br><span class="line"><span class="comment">             * 3. 将文档集合插入数据库集合中 mongoCollection.insertMany(List&lt;Document&gt;) 插入单个文档可以用 mongoCollection.insertOne(Document)</span></span><br><span class="line"><span class="comment">             * */</span></span><br><span class="line">            List&lt;Document&gt; documents = <span class="keyword">new</span> ArrayList&lt;Document&gt;();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">                SimpleDateFormat df = <span class="keyword">new</span> SimpleDateFormat(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line">                Document document = <span class="keyword">new</span> Document(<span class="string">&quot;title&quot;</span>, <span class="string">&quot;123&quot;</span>).</span><br><span class="line">                        append(<span class="string">&quot;description&quot;</span>, <span class="string">&quot;database&quot;</span>).</span><br><span class="line">                        append(<span class="string">&quot;likes&quot;</span>, <span class="number">100</span>).</span><br><span class="line">                        append(<span class="string">&quot;cource&quot;</span>, <span class="string">&quot;English&quot;</span>).</span><br><span class="line">                        append(<span class="string">&quot;time&quot;</span>, df.format(<span class="keyword">new</span> Date()));</span><br><span class="line"><span class="comment">//            List&lt;Document&gt; documents = new ArrayList&lt;Document&gt;();</span></span><br><span class="line">                documents.add(document);</span><br><span class="line">            &#125;</span><br><span class="line">            collection.insertMany(documents);</span><br><span class="line">            System.out.println(<span class="string">&quot;文档插入成功&quot;</span>);</span><br><span class="line"></span><br><span class="line">            FindIterable&lt;Document&gt; findIterable = collection.find();</span><br><span class="line">            MongoCursor&lt;Document&gt; mongoCursor = findIterable.iterator();</span><br><span class="line">            <span class="keyword">while</span> (mongoCursor.hasNext()) &#123;</span><br><span class="line">                System.out.println(mongoCursor.next());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.err.println(e.getClass().getName() + <span class="string">&quot;: &quot;</span> + e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/luoaz/p/4692716.html">https://www.cnblogs.com/luoaz/p/4692716.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wjs040/article/details/96863119?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-7.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-7.control">https://blog.csdn.net/wjs040/article/details/96863119?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-7.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-7.control</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yezhenhan/archive/2012/01/09/2317636.html">https://www.cnblogs.com/yezhenhan/archive/2012/01/09/2317636.html</a></p>
 
       
     </div>
@@ -1153,128 +1343,6 @@
 <p>22.虚函数<br>23.gcc编译过程</p>
 <p>编程题：<br>1.反转链表<br>2.LRU<br>3.树的遍历和生成<br>4.回文<br>5.字符串<br>6.最短路径<br>7.动态规划（子序列）<br>8.排序</p>
 <p>其他：<br>1.查找相似字符串<br>2.大数据排序分类</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="松子">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hotpot nice">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-12-01 17:27:21" itemprop="dateCreated datePublished" datetime="2020-12-01T17:27:21+08:00">2020-12-01</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-12-07 18:45:16" itemprop="dateModified" datetime="2020-12-07T18:45:16+08:00">2020-12-07</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <hr>
-<h2 id="title-测试面试总结"><a href="#title-测试面试总结" class="headerlink" title="title:测试面试总结"></a>title:测试面试总结</h2><h1 id="网络攻防"><a href="#网络攻防" class="headerlink" title="网络攻防"></a>网络攻防</h1><p><strong>（1）</strong> ARP欺骗的攻击原理</p>
-<p>ARP欺骗的是根据ARP协议本身存在的漏洞实现的。攻击者利用伪造的IP／MAC映射关系来骗取其他主机的信任。ARP协议是建立在局域网主机相互信任的基础之上的。ARP具有广播性、无状态性、无认证性、无关性和动态性等一系列的安全缺陷。</p>
-<p><strong>（2）</strong> ARP欺骗的攻击方案：</p>
-<p>①．常见ARP攻击方式</p>
-<ul>
-<li><p>简单的欺骗攻击。同一网段内，目的主机发送ARP广播请求后，攻击主机直接将伪造的应答ARP包发送给路由和目的主机，用虚假的MAC地址欺骗目的主机，从而使主机网络中断。</p>
-</li>
-<li><p>交换环境的嗅探。将自己的主机伪造成一个中间转发站来监听其他主机间的相互通信。嗅探主机获得相应权限可以发送ICMP重定向消息，将自身主机设置为缺省路由器，使其他主机数据包要通过嗅探主机来进行路由转发。为了维持原有正常的网络通信路由状况，需要进行IP转发。</p>
-</li>
-<li><p>交换机MAC地址表溢出。交换机MAC地址表空间有限，运用虚假伪造的包将交换机的MAC地址表充满，交换机无法找到目的主机对应接口，只能在广播域中将数据包泛洪。这种方法可能造成网络堵塞甚至崩溃。</p>
-</li>
-</ul>
-<p>能查找到目标主机的ip</p>
-<p>能使用kali虚拟机的arpspoof命令实现ARP欺骗攻击</p>
-<p>arp地址解析协议是建立在网络中各个主机互相信任的基础</p>
-<p>集线器“Hub”，收到信号放大再生，广播</p>
-<p>成对组合测试 PICT</p>
-<p><img src="/2020/12/01/%E7%BB%8F%E5%8E%86%E6%80%BB%E7%BB%93/image-20201203110016216.png" alt="image-20201203110016216"></p>
-<p>静态测试</p>
-<p>哈希值计算，输入：字符串，返回0到m之间大整数</p>
-<p>哈希冲突：多次哈希，（线性探测、平方探测、拉链法：装载因子可大于1）</p>
-<p>调整哈希表大小</p>
-<p>数据过多队列溢出，单向链式循环队列malloc。返回的指针指向该分配域的开头位置</p>
-<p>深拷贝：新建了内存地址，放内容。</p>
-<p>浅拷贝：指针指向内存。</p>
-<h1 id="大数据项目部署过程记录"><a href="#大数据项目部署过程记录" class="headerlink" title="大数据项目部署过程记录"></a>大数据项目部署过程记录</h1><p>​    （1）集群包含节点，一主一从，均位于虚拟机。</p>
-<p>​    （2）RedisServer位于Windows系统，需要的话可以移植到虚拟机上，通过Redis Desktop Manager远程访问。</p>
-<p>​    （3）MySQLServer位于集群主节点，在Windows系统上通过Navicat远程访问。</p>
-<p>​    （4）爬虫和Spark程序都需要手动拷贝到集群运行</p>
-<p>​    （5）爬虫启动后自动将保存到HDFS</p>
-<p>​    （5）Spark程序启动后自动从HDFS系统读取数据文件，将分析的数据结果保存到MySQL数据库。</p>
-<h1 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a>测试工具</h1><p>JUnit单元测试</p>
-<p>JUnit Test Case,建立一个测试类，通过注解</p>
-<p>使用<strong>注释命令</strong>控制测试执行</p>
-<p>@Test测试类timeout,expected.</p>
-<p>@After @Before</p>
-<p>@Parameters 参数化测试数据</p>
-<p>testsuite将多个test文件统一执行调度</p>
-<p>QTP，软件功能测试、回归测试</p>
-<p>利用对象识别技术。自动化功能测试软件，通过检查点技术来检查网页，对象，表格等是否符合预期。功能是否符合要求。</p>
-<p>(链接跳转、用户注册、用户登录、航班查询等功能测试）。</p>
-<p>Load Runner系统性能测试。</p>
-<p>组件：</p>
-<ul>
-<li>虚拟用户发生器(VuGen):创建虚拟用户测试脚本</li>
-<li>控制器(Controller):设计与运行测试场景。</li>
-<li>负载发生器(Load Generators):模拟用户对服务器提交请求。</li>
-<li>分析器(Analysis):主要对测试结果进行分析。</li>
-</ul>
-<p>​         </p>
-<p>我是来自电子科技大学大三的学生何龙，专业是软件工程网络安全方向。主要语言技能是比较熟悉C语言，也了解过一些关系型数据库postgresql的操作。软件工程基础学过软件测试的相关知识</p>
 
       
     </div>
